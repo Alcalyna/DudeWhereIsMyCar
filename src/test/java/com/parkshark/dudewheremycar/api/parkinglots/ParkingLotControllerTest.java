@@ -31,7 +31,7 @@ class ParkingLotControllerTest {
                 .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
                         "0123456789", "9876543210"))
                 .withMaxCapacity(250)
-                .withDivision(new Division())
+                .withDivision(new Division("myDivision", "myDirector"))
                 .withPricePerHour(55.25)
                 .build();
 

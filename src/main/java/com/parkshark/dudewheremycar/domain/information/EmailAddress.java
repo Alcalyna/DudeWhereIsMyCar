@@ -13,4 +13,16 @@ public class EmailAddress {
         this.username = username;
         this.domain = domain;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
 }

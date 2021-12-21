@@ -1,10 +1,13 @@
 package com.parkshark.dudewheremycar.api.parkinglots;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLotCategory;
 
+@JsonDeserialize(builder = ParkingLotDto.ParkingLotDtoBuilder.class)
 public class ParkingLotDto {
 
     private final String name;
@@ -53,6 +56,7 @@ public class ParkingLotDto {
         this.pricePerHour = parkingLotDtoBuilder.pricePerHour;
     }
 
+    @JsonPOJOBuilder(withPrefix = "with")
     public static final class ParkingLotDtoBuilder {
         private String name;
         private ParkingLotCategory parkingLotCategory;

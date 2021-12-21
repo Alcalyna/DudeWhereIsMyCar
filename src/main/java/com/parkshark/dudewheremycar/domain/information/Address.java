@@ -17,4 +17,24 @@ public class Address {
         this.zipCode = zipCode;
         this.city = city;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
 }
