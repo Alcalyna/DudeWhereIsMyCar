@@ -16,8 +16,6 @@ public class DivisionMapper {
     }
 
     public Division mapCreateDivisionDtoToDivision(CreateDivisionDto createDivisionDto) {
-        System.out.println("The id is " + createDivisionDto.getDirectorId().toString());
-        System.out.println(ANSI_GREEN + directorRepository.getDirectorById(createDivisionDto.getDirectorId()) + ANSI_GREEN);
         return new Division(createDivisionDto.getName(), createDivisionDto.getOriginalName(), directorRepository.getDirectorById(createDivisionDto.getDirectorId()));
     }
 

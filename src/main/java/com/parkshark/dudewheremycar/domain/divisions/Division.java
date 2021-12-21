@@ -51,13 +51,4 @@ public class Division {
         return originalName;
     }
 
-    @Override
-    public String toString() {
-        return "Division{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", originalName='" + originalName + '\'' +
-                ", director=" + director +
-                '}';
-    }
 }
