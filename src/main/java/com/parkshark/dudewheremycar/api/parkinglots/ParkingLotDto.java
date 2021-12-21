@@ -1,10 +1,11 @@
-package com.parkshark.dudewheremycar.domain.parkinglots;
+package com.parkshark.dudewheremycar.api.parkinglots;
 
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
+import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLotCategory;
 
-public class ParkingLot {
+public class ParkingLotDto {
 
     private final String name;
     private final ParkingLotCategory parkingLotCategory;
@@ -42,17 +43,17 @@ public class ParkingLot {
         return pricePerHour;
     }
 
-    private ParkingLot(ParkingLotBuilder parkingLotBuilder) {
-        this.name = parkingLotBuilder.name;
-        this.address = parkingLotBuilder.address;
-        this.parkingLotCategory = parkingLotBuilder.parkingLotCategory;
-        this.contactPerson = parkingLotBuilder.contactPerson;
-        this.maxCapacity = parkingLotBuilder.maxCapacity;
-        this.division = parkingLotBuilder.division;
-        this.pricePerHour = parkingLotBuilder.pricePerHour;
+    private ParkingLotDto(ParkingLotDtoBuilder parkingLotDtoBuilder) {
+        this.name = parkingLotDtoBuilder.name;
+        this.address = parkingLotDtoBuilder.address;
+        this.parkingLotCategory = parkingLotDtoBuilder.parkingLotCategory;
+        this.contactPerson = parkingLotDtoBuilder.contactPerson;
+        this.maxCapacity = parkingLotDtoBuilder.maxCapacity;
+        this.division = parkingLotDtoBuilder.division;
+        this.pricePerHour = parkingLotDtoBuilder.pricePerHour;
     }
 
-    public static final class ParkingLotBuilder {
+    public static final class ParkingLotDtoBuilder {
         private String name;
         private ParkingLotCategory parkingLotCategory;
         private int maxCapacity;
@@ -61,50 +62,50 @@ public class ParkingLot {
         private Division division;
         private double pricePerHour;
 
-        private ParkingLotBuilder() {
+        private ParkingLotDtoBuilder() {
         }
 
-        public static ParkingLotBuilder aParkingLot() {
-            return new ParkingLotBuilder();
+        public static ParkingLotDtoBuilder aParkingLotDto() {
+            return new ParkingLotDtoBuilder();
         }
 
-        public ParkingLotBuilder withName(String name) {
+        public ParkingLotDtoBuilder withName(String name) {
             this.name = name;
             return this;
         }
 
-        public ParkingLotBuilder withParkingLotCategory(ParkingLotCategory parkingLotCategory) {
+        public ParkingLotDtoBuilder withParkingLotCategory(ParkingLotCategory parkingLotCategory) {
             this.parkingLotCategory = parkingLotCategory;
             return this;
         }
 
-        public ParkingLotBuilder withMaxCapacity(int maxCapacity) {
+        public ParkingLotDtoBuilder withMaxCapacity(int maxCapacity) {
             this.maxCapacity = maxCapacity;
             return this;
         }
 
-        public ParkingLotBuilder withContactPerson(ContactPerson contactPerson) {
+        public ParkingLotDtoBuilder withContactPerson(ContactPerson contactPerson) {
             this.contactPerson = contactPerson;
             return this;
         }
 
-        public ParkingLotBuilder withAddress(Address address) {
+        public ParkingLotDtoBuilder withAddress(Address address) {
             this.address = address;
             return this;
         }
 
-        public ParkingLotBuilder withDivision(Division division) {
+        public ParkingLotDtoBuilder withDivision(Division division) {
             this.division = division;
             return this;
         }
 
-        public ParkingLotBuilder withPricePerHour(double pricePerHour) {
+        public ParkingLotDtoBuilder withPricePerHour(double pricePerHour) {
             this.pricePerHour = pricePerHour;
             return this;
         }
 
-        public ParkingLot build() {
-            return new ParkingLot(this);
+        public ParkingLotDto build() {
+            return new ParkingLotDto(this);
         }
     }
 }
