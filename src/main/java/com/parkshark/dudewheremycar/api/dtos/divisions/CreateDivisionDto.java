@@ -18,4 +18,19 @@ public class CreateDivisionDto {
     public UUID getDirectorId() {
         return directorId;
     }
+
+    public CreateDivisionDto setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public CreateDivisionDto setOriginalName(String originalName) {
+        this.originalName = originalName;
+        return this;
+    }
+
+    public CreateDivisionDto setDirectorId(UUID directorId) {
+        this.directorId = directorId;
+        return this;
+    }
 }

@@ -17,4 +17,19 @@ public class DivisionDto {
         this.director = director;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public Director getDirector() {
+        return director;
+    }
 }

@@ -7,10 +7,9 @@ import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "director")
+@Table(name = "DIRECTORS")
 public class Director {
     @Id
-    @Column(nullable = false)
     private UUID id;
 
     @Column(name = "FIRST_NAME")

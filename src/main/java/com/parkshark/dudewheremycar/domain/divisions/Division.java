@@ -19,8 +19,6 @@ public class Division {
 
     @ManyToOne
     @JoinColumn(name = "DIRECTOR")
-
-    @Transient
     private Director director;
 
     public void setDirector(Director director) {
@@ -51,5 +49,15 @@ public class Division {
 
     public String getOriginalName() {
         return originalName;
+    }
+
+    @Override
+    public String toString() {
+        return "Division{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", originalName='" + originalName + '\'' +
+                ", director=" + director +
+                '}';
     }
 }

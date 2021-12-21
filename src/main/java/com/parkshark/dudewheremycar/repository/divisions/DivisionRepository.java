@@ -12,7 +12,6 @@ import javax.transaction.Transactional;
 @Repository
 public class DivisionRepository {
 
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -25,4 +24,5 @@ public class DivisionRepository {
     public void addDivision(Division division) {
         entityManager.persist(division);
     }
+
 }
