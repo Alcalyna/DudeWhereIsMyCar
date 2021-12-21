@@ -8,21 +8,22 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Repository
-public class DivisionRepository {
-
+public class DirectorRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    public DivisionRepository(EntityManager entityManager) {
+    public DirectorRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
-    @Transactional
-    public void addDivision(Division division) {
-        entityManager.persist(division);
+    public Director getDirectorById(UUID id) {
+        return entityManager.createQuery("SELECT d FROM Director d WHERE d.id = :id", Director.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }
