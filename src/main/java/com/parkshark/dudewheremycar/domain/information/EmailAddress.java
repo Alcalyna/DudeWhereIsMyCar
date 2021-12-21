@@ -11,18 +11,21 @@ import java.util.UUID;
 public class EmailAddress {
 
     @Id
-    private final UUID id;
+    private UUID id;
 
     @Column(name= "username")
-    private final String username;
+    private String username;
 
     @Column(name= "domain")
-    private final String domain;
+    private String domain;
 
     public EmailAddress(String username, String domain) {
         this.id = UUID.randomUUID();
         this.username = username;
         this.domain = domain;
+    }
+
+    private EmailAddress() {
     }
 
     public UUID getId() {

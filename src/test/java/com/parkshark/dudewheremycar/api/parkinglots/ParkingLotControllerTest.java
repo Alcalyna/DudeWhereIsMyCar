@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.annotation.DirtiesContext;
 
+import javax.transaction.Transactional;
+
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,6 +26,7 @@ class ParkingLotControllerTest {
     private int port;
 
     @Test
+    @Transactional
     void givenParkingLot_whenManagerCreatesParkingLot_thenParkingLotIsAdded(){
         ParkingLotDto createParkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
                 .withName("parkinglot1")

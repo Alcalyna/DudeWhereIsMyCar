@@ -7,9 +7,12 @@ import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLotCategory;
 
+import java.util.UUID;
+
 @JsonDeserialize(builder = ParkingLotDto.ParkingLotDtoBuilder.class)
 public class ParkingLotDto {
 
+    private final UUID id;
     private final String name;
     private final ParkingLotCategory parkingLotCategory;
     private final int maxCapacity;
@@ -46,7 +49,12 @@ public class ParkingLotDto {
         return pricePerHour;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     private ParkingLotDto(ParkingLotDtoBuilder parkingLotDtoBuilder) {
+        this.id = parkingLotDtoBuilder.id;
         this.name = parkingLotDtoBuilder.name;
         this.address = parkingLotDtoBuilder.address;
         this.parkingLotCategory = parkingLotDtoBuilder.parkingLotCategory;
@@ -58,6 +66,7 @@ public class ParkingLotDto {
 
     @JsonPOJOBuilder(withPrefix = "with")
     public static final class ParkingLotDtoBuilder {
+        private UUID id;
         private String name;
         private ParkingLotCategory parkingLotCategory;
         private int maxCapacity;
@@ -71,6 +80,11 @@ public class ParkingLotDto {
 
         public static ParkingLotDtoBuilder aParkingLotDto() {
             return new ParkingLotDtoBuilder();
+        }
+
+        public ParkingLotDtoBuilder withId(UUID id) {
+            this.id = id;
+            return this;
         }
 
         public ParkingLotDtoBuilder withName(String name) {

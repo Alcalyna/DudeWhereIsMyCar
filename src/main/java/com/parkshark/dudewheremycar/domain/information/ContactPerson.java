@@ -8,23 +8,26 @@ import java.util.UUID;
 public class ContactPerson {
 
     @Id
-    private final UUID id;
+    private UUID id;
 
     @OneToOne
     @JoinColumn(name= "email_address")
-    private final EmailAddress emailAddress;
+    private EmailAddress emailAddress;
 
     @Column(name= "phone_number")
-    private final String phoneNumber;
+    private String phoneNumber;
 
     @Column(name= "mobile_number")
-    private final String mobileNumber;
+    private String mobileNumber;
 
     public ContactPerson(EmailAddress emailAddress, String phoneNumber, String mobileNumber) {
         this.id = UUID.randomUUID();
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.mobileNumber = mobileNumber;
+    }
+
+    private ContactPerson() {
     }
 
     public UUID getId() {

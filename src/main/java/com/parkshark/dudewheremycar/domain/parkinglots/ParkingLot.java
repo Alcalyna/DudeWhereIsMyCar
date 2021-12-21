@@ -5,34 +5,54 @@ import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "parking_lots")
 public class ParkingLot {
 
-    @Column(name= "name")
+    @Id
+    @Column(name= "id")
+    private UUID id;
+
+    @Column(name = "name")
     private String name;
 
-    @Column(name= "category")
+    @Column(name = "category")
     private ParkingLotCategory parkingLotCategory;
 
-    @Column(name= "max_capacity")
+    @Column(name = "max_capacity")
     private int maxCapacity;
 
     @ManyToOne
-    @JoinColumn(name= "contact_person")
+    @JoinColumn(name = "contact_person")
     private ContactPerson contactPerson;
 
     @OneToOne
-    @JoinColumn(name= "address")
+    @JoinColumn(name = "address")
     private Address address;
 
     @ManyToOne
-    @JoinColumn(name= "division")
+    @JoinColumn(name = "division")
     private Division division;
 
-    @Column(name= "price_per_hour")
+    @Column(name = "price_per_hour")
     private double pricePerHour;
+
+    private ParkingLot(ParkingLotBuilder parkingLotBuilder) {
+        this.id = UUID.randomUUID();
+        this.name = parkingLotBuilder.name;
+        this.address = parkingLotBuilder.address;
+        this.parkingLotCategory = parkingLotBuilder.parkingLotCategory;
+        this.contactPerson = parkingLotBuilder.contactPerson;
+        this.maxCapacity = parkingLotBuilder.maxCapacity;
+        this.division = parkingLotBuilder.division;
+        this.pricePerHour = parkingLotBuilder.pricePerHour;
+    }
+
+    protected ParkingLot() {}
+
+    public UUID getId() { return id; }
 
     public String getName() {
         return name;
@@ -60,19 +80,6 @@ public class ParkingLot {
 
     public double getPricePerHour() {
         return pricePerHour;
-    }
-
-    private ParkingLot(ParkingLotBuilder parkingLotBuilder) {
-        this.name = parkingLotBuilder.name;
-        this.address = parkingLotBuilder.address;
-        this.parkingLotCategory = parkingLotBuilder.parkingLotCategory;
-        this.contactPerson = parkingLotBuilder.contactPerson;
-        this.maxCapacity = parkingLotBuilder.maxCapacity;
-        this.division = parkingLotBuilder.division;
-        this.pricePerHour = parkingLotBuilder.pricePerHour;
-    }
-
-    protected ParkingLot() {
     }
 
     public static final class ParkingLotBuilder {
