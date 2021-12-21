@@ -1,2 +1,4 @@
-package com.parkshark.dudewheremycar.domain.members;public class Member {
+package com.parkshark.dudewheremycar.domain.members;
+
+public class Member {
 }

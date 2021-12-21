@@ -1,2 +1,4 @@
-package com.parkshark.dudewheremycar.repository.members;public class MemberRepository {
+package com.parkshark.dudewheremycar.repository.members;
+
+public class MemberRepository {
 }

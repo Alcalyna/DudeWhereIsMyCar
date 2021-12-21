@@ -1,2 +1,4 @@
-package com.parkshark.dudewheremycar.api.divisions;public class DivisionController {
+package com.parkshark.dudewheremycar.api.divisions;
+
+public class DivisionController {
 }
