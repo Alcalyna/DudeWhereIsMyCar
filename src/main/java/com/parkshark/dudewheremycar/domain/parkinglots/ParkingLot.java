@@ -4,15 +4,35 @@ import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "parking_lots")
 public class ParkingLot {
 
-    private final String name;
-    private final ParkingLotCategory parkingLotCategory;
-    private final int maxCapacity;
-    private final ContactPerson contactPerson;
-    private final Address address;
-    private final Division division;
-    private final double pricePerHour;
+    @Column(name= "name")
+    private String name;
+
+    @Column(name= "category")
+    private ParkingLotCategory parkingLotCategory;
+
+    @Column(name= "max_capacity")
+    private int maxCapacity;
+
+    @ManyToOne
+    @JoinColumn(name= "contact_person")
+    private ContactPerson contactPerson;
+
+    @OneToOne
+    @JoinColumn(name= "address")
+    private Address address;
+
+    @ManyToOne
+    @JoinColumn(name= "division")
+    private Division division;
+
+    @Column(name= "price_per_hour")
+    private double pricePerHour;
 
     public String getName() {
         return name;
@@ -50,6 +70,9 @@ public class ParkingLot {
         this.maxCapacity = parkingLotBuilder.maxCapacity;
         this.division = parkingLotBuilder.division;
         this.pricePerHour = parkingLotBuilder.pricePerHour;
+    }
+
+    protected ParkingLot() {
     }
 
     public static final class ParkingLotBuilder {

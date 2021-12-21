@@ -1,5 +1,10 @@
 package com.parkshark.dudewheremycar.domain.divisions;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name= "divisions")
 public class Division {
 
     private final String name;

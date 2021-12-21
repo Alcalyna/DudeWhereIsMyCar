@@ -2,6 +2,7 @@ package com.parkshark.dudewheremycar.api.parkinglots;
 
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
+import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLotCategory;
@@ -27,7 +28,7 @@ class ParkingLotControllerTest {
         ParkingLotDto createParkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
                 .withName("parkinglot1")
                 .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
-                .withAddress(new Address("myStreetName", "69", "3000", "myCity"))
+                .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
                 .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
                         "0123456789", "9876543210"))
                 .withMaxCapacity(250)

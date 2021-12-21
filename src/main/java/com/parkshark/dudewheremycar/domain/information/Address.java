@@ -1,21 +1,31 @@
 package com.parkshark.dudewheremycar.domain.information;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name= "addresses")
 public class Address {
 
+    @Id
     private final UUID id;
-    private final String streetName;
-    private final String streetNumber;
-    private final String zipCode;
-    private final String city;
 
-    public Address(String streetName, String streetNumber, String zipCode, String city) {
+    @Column(name= "street_name")
+    private final String streetName;
+
+    @Column(name= "street_number")
+    private final String streetNumber;
+
+    @ManyToOne
+    @JoinColumn(name= "zip")
+    private final City city;
+
+    public Address(String streetName, String streetNumber, City city) {
         this.id = UUID.randomUUID();
         this.streetName = streetName;
         this.streetNumber = streetNumber;
-        this.zipCode = zipCode;
         this.city = city;
+
     }
 
     public UUID getId() {
@@ -30,11 +40,8 @@ public class Address {
         return streetNumber;
     }
 
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public String getCity() {
+    public City getCity() {
         return city;
     }
+
 }
