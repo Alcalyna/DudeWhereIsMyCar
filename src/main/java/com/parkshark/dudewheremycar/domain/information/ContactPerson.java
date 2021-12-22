@@ -1,16 +1,19 @@
 package com.parkshark.dudewheremycar.domain.information;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name= "contact_persons")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ContactPerson {
 
     @Id
     private UUID id;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name= "email_address")
     private EmailAddress emailAddress;
 

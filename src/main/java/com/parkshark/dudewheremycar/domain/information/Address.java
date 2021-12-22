@@ -1,10 +1,13 @@
 package com.parkshark.dudewheremycar.domain.information;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "addresses")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
 
     @Id
@@ -17,7 +20,7 @@ public class Address {
     @Column(name = "street_number")
     private String streetNumber;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "zip")
     private City city;
 

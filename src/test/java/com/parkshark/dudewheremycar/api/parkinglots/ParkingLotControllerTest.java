@@ -1,5 +1,6 @@
 package com.parkshark.dudewheremycar.api.parkinglots;
 
+import com.parkshark.dudewheremycar.domain.divisions.Director;
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.City;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.annotation.DirtiesContext;
 
 import javax.transaction.Transactional;
 
@@ -19,7 +19,6 @@ import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class ParkingLotControllerTest {
 
     @Value("${server.port}")
@@ -35,7 +34,7 @@ class ParkingLotControllerTest {
                 .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
                         "0123456789", "9876543210"))
                 .withMaxCapacity(250)
-                .withDivision(new Division("myDivision", "myDirector"))
+                .withDivision(new Division("myDivision", "myOriginalDivision", new Director("firstName", "last")))
                 .withPricePerHour(55.25)
                 .build();
 
@@ -63,21 +62,57 @@ class ParkingLotControllerTest {
         if(!actual.getName().equals(expected.getName())){
             return false;
         }
-        if(!actual.getAddress().equals(expected.getAddress())){
+        if(!compareAddresses(actual.getAddress(), expected.getAddress())){
             return false;
         }
-        if(!actual.getContactPerson().equals(expected.getContactPerson())){
+        if(!compareContactPerson(actual.getContactPerson(), expected.getContactPerson())){
             return false;
         }
         if(!actual.getParkingLotCategory().equals(expected.getParkingLotCategory())){
             return false;
         }
-        if(!actual.getDivision().equals(expected.getDivision())){
+        if(!compareDivisions(actual.getDivision(), expected.getDivision())){
             return false;
         }
         if(!(actual.getPricePerHour() == expected.getPricePerHour())){
             return false;
         }
+        return true;
+    }
+
+    private boolean compareDivisions(Division actual, Division expected) {
+        if (!actual.getDirector().getFirstName().equals(expected.getDirector().getFirstName()))
+            return false;
+        if (!actual.getDirector().getLastName().equals(expected.getDirector().getLastName()))
+            return false;
+        if (!actual.getOriginalName().equals(expected.getOriginalName()))
+            return false;
+        if (!actual.getName().equals(expected.getName()))
+            return false;
+        return true;
+    }
+
+    private boolean compareContactPerson(ContactPerson actual, ContactPerson expected) {
+        if (!actual.getEmailAddress().getDomain().equals(expected.getEmailAddress().getDomain()))
+            return false;
+        if (!actual.getEmailAddress().getUsername().equals(expected.getEmailAddress().getUsername()))
+            return false;
+        if (!actual.getMobileNumber().equals(expected.getMobileNumber()))
+            return false;
+        if (!actual.getPhoneNumber().equals(expected.getPhoneNumber()))
+            return false;
+        return true;
+    }
+
+    private boolean compareAddresses(Address actual, Address expected) {
+        if (!actual.getStreetName().equals(expected.getStreetName()))
+            return false;
+        if (!actual.getStreetNumber().equals(expected.getStreetNumber()))
+            return false;
+        if (!actual.getCity().getZipCode().equals(expected.getCity().getZipCode()))
+            return false;
+        if (!actual.getCity().getName().equals(expected.getCity().getName()))
+            return false;
         return true;
     }
 }

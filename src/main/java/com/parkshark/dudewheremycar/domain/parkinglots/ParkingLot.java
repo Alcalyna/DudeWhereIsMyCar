@@ -24,15 +24,15 @@ public class ParkingLot {
     @Column(name = "max_capacity")
     private int maxCapacity;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "contact_person")
     private ContactPerson contactPerson;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "address")
     private Address address;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "division")
     private Division division;
 
