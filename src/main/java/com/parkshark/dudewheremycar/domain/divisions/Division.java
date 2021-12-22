@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name= "divisions")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Division {
 
     @Id

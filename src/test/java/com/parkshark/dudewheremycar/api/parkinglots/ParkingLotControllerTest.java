@@ -8,6 +8,7 @@ import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLotCategory;
 import io.restassured.RestAssured;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,6 +57,38 @@ class ParkingLotControllerTest {
                         .as(ParkingLotDto.class);
 
         assertThat(compareParkingLotDtos(createdParkingLotDto,createParkingLotDto)).isTrue();
+    }
+
+    @Test
+    @Transactional
+    void givenIncompleteParkingLot_whenManagerCreatesParkingLot_thenBadRequestIsReturnedWithMessage(){
+        ParkingLotDto createParkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
+                .withName("parkinglot1")
+                .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
+                .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
+                .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
+                        "0123456789", "9876543210"))
+                .withDivision(new Division("myDivision", "myOriginalDivision", new Director("firstName", "last")))
+                .withPricePerHour(55.25)
+                .build();
+
+        //String authorization = "Basic " + Base64.getEncoder().encodeToString("admin@mail.com:adminpassword".getBytes());
+
+        String responseMessage =
+                RestAssured
+                        .given()
+                        .body(createParkingLotDto)
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .post("/parkinglots")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.BAD_REQUEST.value())
+                        .extract().path("message");
+
+        Assertions.assertThat(responseMessage).isEqualTo("A parking lot requires a strictly positive capacity");
     }
 
     private boolean compareParkingLotDtos(ParkingLotDto actual, ParkingLotDto expected){

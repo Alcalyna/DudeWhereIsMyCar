@@ -1,13 +1,13 @@
 package com.parkshark.dudewheremycar.domain.information;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidContactPersonInformationException;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name= "contact_persons")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ContactPerson {
 
     @Id
@@ -24,10 +24,20 @@ public class ContactPerson {
     private String mobileNumber;
 
     public ContactPerson(EmailAddress emailAddress, String phoneNumber, String mobileNumber) {
+        validateContactPersonInformation(emailAddress,phoneNumber,mobileNumber);
         this.id = UUID.randomUUID();
         this.emailAddress = emailAddress;
         this.phoneNumber = phoneNumber;
         this.mobileNumber = mobileNumber;
+    }
+
+    private void validateContactPersonInformation(EmailAddress emailAddress, String phoneNumber, String mobileNumber) {
+        if(emailAddress == null){
+            throw new InvalidContactPersonInformationException("A contact person requires a zip code");
+        }
+        if(phoneNumber == null && mobileNumber == null){
+            throw new InvalidContactPersonInformationException("A contact person requires at least a phone number or a mobile number");
+        }
     }
 
     private ContactPerson() {

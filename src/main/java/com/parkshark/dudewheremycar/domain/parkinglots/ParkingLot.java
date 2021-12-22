@@ -1,6 +1,7 @@
 package com.parkshark.dudewheremycar.domain.parkinglots;
 
 import com.parkshark.dudewheremycar.domain.divisions.Division;
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidParkingLotInformationException;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 
@@ -40,6 +41,7 @@ public class ParkingLot {
     private double pricePerHour;
 
     private ParkingLot(ParkingLotBuilder parkingLotBuilder) {
+        validateParkingLotInformation(parkingLotBuilder);
         this.id = UUID.randomUUID();
         this.name = parkingLotBuilder.name;
         this.address = parkingLotBuilder.address;
@@ -48,6 +50,30 @@ public class ParkingLot {
         this.maxCapacity = parkingLotBuilder.maxCapacity;
         this.division = parkingLotBuilder.division;
         this.pricePerHour = parkingLotBuilder.pricePerHour;
+    }
+
+    private void validateParkingLotInformation(ParkingLotBuilder parkingLotBuilder) {
+        if(parkingLotBuilder.name == null){
+            throw new InvalidParkingLotInformationException("A parking lot requires a name");
+        }
+        if(parkingLotBuilder.address == null){
+            throw new InvalidParkingLotInformationException("A parking lot requires an address");
+        }
+        if(parkingLotBuilder.parkingLotCategory == null){
+            throw new InvalidParkingLotInformationException("A parking lot requires a category");
+        }
+        if(parkingLotBuilder.contactPerson == null){
+            throw new InvalidParkingLotInformationException("A parking lot requires a contact person");
+        }
+        if(parkingLotBuilder.maxCapacity <= 0){
+            throw new InvalidParkingLotInformationException("A parking lot requires a strictly positive capacity");
+        }
+        if(parkingLotBuilder.division == null){
+            throw new InvalidParkingLotInformationException("A parking lot requires a division");
+        }
+        if(parkingLotBuilder.pricePerHour < 0){
+            throw new InvalidParkingLotInformationException("A parking lot requires a positive price per hour");
+        }
     }
 
     protected ParkingLot() {}

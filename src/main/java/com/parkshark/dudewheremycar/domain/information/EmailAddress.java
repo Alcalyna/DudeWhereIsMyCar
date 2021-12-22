@@ -1,6 +1,7 @@
 package com.parkshark.dudewheremycar.domain.information;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidEmailAddressInformationException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name= "email_addresses")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class EmailAddress {
 
     @Id
@@ -23,9 +23,25 @@ public class EmailAddress {
     private String domain;
 
     public EmailAddress(String username, String domain) {
+        validateEmailAddressInformation(username,domain);
         this.id = UUID.randomUUID();
         this.username = username;
         this.domain = domain;
+    }
+
+    private void validateEmailAddressInformation(String username, String domain) {
+        if(username == null){
+            throw new InvalidEmailAddressInformationException("An email requires a username");
+        }
+        if(username.contains("@")){
+            throw new InvalidEmailAddressInformationException("An emails username cannot contain '@'");
+        }
+        if(domain == null){
+            throw new InvalidEmailAddressInformationException("An email requires a domain");
+        }
+        if(domain.contains("@")){
+            throw new InvalidEmailAddressInformationException("An emails domain cannot contain '@'");
+        }
     }
 
     private EmailAddress() {
@@ -42,4 +58,5 @@ public class EmailAddress {
     public String getDomain() {
         return domain;
     }
+
 }

@@ -1,13 +1,12 @@
 package com.parkshark.dudewheremycar.domain.information;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidAddressInformationException;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "addresses")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Address {
 
     @Id
@@ -25,10 +24,23 @@ public class Address {
     private City city;
 
     public Address(String streetName, String streetNumber, City city) {
+        validateAddressInformation(streetName,streetNumber,city);
         this.id = UUID.randomUUID();
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.city = city;
+    }
+
+    private void validateAddressInformation(String streetName, String streetNumber, City city) {
+        if(streetName == null){
+            throw new InvalidAddressInformationException("An address requires a street name");
+        }
+        if(streetNumber == null){
+            throw new InvalidAddressInformationException("An address requires a street number");
+        }
+        if(city == null){
+            throw new InvalidAddressInformationException("An address requires a city");
+        }
     }
 
     private Address() {}

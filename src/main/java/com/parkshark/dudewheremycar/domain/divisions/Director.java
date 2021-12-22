@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "DIRECTORS")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Director {
 
     @Id
