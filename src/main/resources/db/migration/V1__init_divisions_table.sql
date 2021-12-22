@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS divisions
     id UUID PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     original_name VARCHAR(50),
-    director UUID NOT NULL UNIQUE,
+    director UUID NOT NULL,
     FOREIGN KEY (director) REFERENCES directors(id)
 )

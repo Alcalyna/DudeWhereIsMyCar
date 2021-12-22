@@ -14,7 +14,6 @@ import java.util.UUID;
 import static io.restassured.http.ContentType.JSON;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-//@Sql("/script.sql")
 class DivisionControllerTest {
 
     @Value("${server.port}")
