@@ -1,2 +1,5 @@
-package com.parkshark.dudewheremycar.api.members;public class MemberController {
+
+package com.parkshark.dudewheremycar.api.members;
+
+public class MemberController {
 }

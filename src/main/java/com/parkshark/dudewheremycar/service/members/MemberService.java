@@ -1,2 +1,5 @@
-package com.parkshark.dudewheremycar.service.members;public class MemberService {
+
+package com.parkshark.dudewheremycar.service.members;
+
+public class MemberService {
 }

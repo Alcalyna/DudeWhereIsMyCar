@@ -1,2 +1,5 @@
-package com.parkshark.dudewheremycar.api.parkinglots;public class ParkingLotController {
+
+package com.parkshark.dudewheremycar.api.parkinglots;
+
+public class ParkingLotController {
 }

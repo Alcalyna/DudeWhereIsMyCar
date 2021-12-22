@@ -1,2 +1,5 @@
-package com.parkshark.dudewheremycar.service.divisions;public class DivisionService {
+
+package com.parkshark.dudewheremycar.service.divisions;
+
+public class DivisionService {
 }

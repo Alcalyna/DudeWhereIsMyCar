@@ -1,2 +1,5 @@
-package com.parkshark.dudewheremycar.domain.divisions;public class Division {
+
+package com.parkshark.dudewheremycar.domain.divisions;
+
+public class Division {
 }

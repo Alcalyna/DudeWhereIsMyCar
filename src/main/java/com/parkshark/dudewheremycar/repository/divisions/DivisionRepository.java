@@ -1,2 +1,5 @@
-package com.parkshark.dudewheremycar.repository.divisions;public class DivisionRepository {
+package com.parkshark.dudewheremycar.repository.divisions;
+
+public class DivisionRepository {
+
 }
