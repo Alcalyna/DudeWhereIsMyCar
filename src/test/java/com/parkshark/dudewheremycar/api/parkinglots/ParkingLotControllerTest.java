@@ -17,6 +17,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -93,6 +95,81 @@ class ParkingLotControllerTest {
         Assertions.assertThat(responseMessage).isEqualTo("A parking lot requires a strictly positive capacity");
     }
 
+    @Test
+    @Transactional
+    void givenTwoParkingLots_whenManagerGetsAllParkingLots_thenTwoParkingLotDtosAreReturned() {
+        ParkingLotDto createParkingLotDto1 = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
+                .withName("parkinglot1")
+                .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
+                .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
+                .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
+                        "0123456789", "9876543210"))
+                .withMaxCapacity(250)
+                .withDivision(new Division("myDivision", "myOriginalDivision", new Director("firstName", "last")))
+                .withPricePerHour(55.25)
+                .build();
+
+        ParkingLotDto createParkingLotDto2 = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
+                .withName("parkinglot2")
+                .withParkingLotCategory(ParkingLotCategory.UNDERGROUND)
+                .withAddress(new Address("myStreet", "96", new City("4000", "theCity")))
+                .withContactPerson(new ContactPerson(new EmailAddress("theUsername","theswitch.com"),
+                        "066123456789", "966876543210"))
+                .withMaxCapacity(650)
+                .withDivision(new Division("theDivision", "theOriginalDivision", new Director("ffirstName", "llast")))
+                .withPricePerHour(65.25)
+                .build();
+
+        ParkingLotDto createdParkingLotDto1 =
+                RestAssured
+                        .given()
+                        .body(createParkingLotDto1)
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .post("/parkinglots")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .extract()
+                        .as(ParkingLotDto.class);
+
+        ParkingLotDto createdParkingLotDto2 =
+                RestAssured
+                        .given()
+                        .body(createParkingLotDto2)
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .post("/parkinglots")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .extract()
+                        .as(ParkingLotDto.class);
+
+        List<ParkingLotDto> createdListOfParkingLotDtos =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .get("/parkinglots")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.OK.value())
+                        .extract()
+                        .body()
+                        .jsonPath()
+                        .getList(".", ParkingLotDto.class);
+
+        assertThat(listContainsParkingLotDto(createdListOfParkingLotDtos, createdParkingLotDto1)).isTrue();
+        assertThat(listContainsParkingLotDto(createdListOfParkingLotDtos, createdParkingLotDto2)).isTrue();
+    }
+
     private boolean compareParkingLotDtos(ParkingLotDto actual, ParkingLotDto expected){
         if(!actual.getName().equals(expected.getName())){
             return false;
@@ -149,5 +226,13 @@ class ParkingLotControllerTest {
         if (!actual.getCity().getName().equals(expected.getCity().getName()))
             return false;
         return true;
+    }
+
+    private boolean listContainsParkingLotDto(List <ParkingLotDto> listOfParkingLotDtos, ParkingLotDto dtoToCompare) {
+        return listOfParkingLotDtos
+                .stream()
+                .map(parkingLotDtoInList -> compareParkingLotDtos(parkingLotDtoInList, dtoToCompare))
+                .toList()
+                .contains(true);
     }
 }

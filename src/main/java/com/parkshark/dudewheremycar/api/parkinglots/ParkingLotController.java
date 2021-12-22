@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/parkinglots")
 public class ParkingLotController {
@@ -33,5 +35,15 @@ public class ParkingLotController {
         ParkingLotDto createdParkingLotDto = parkingLotMapper.mapParkingLotToDto(createdParkingLot);
         logger.info("Creating a parking lot finished");
         return createdParkingLotDto;
+    }
+
+    @GetMapping(produces= MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParkingLotDto> getAllParkingLots() {
+        logger.info("Getting all parking lots started");
+        List<ParkingLot> allParkingLots = parkingLotService.getAllParkingLots();
+        List<ParkingLotDto> allParkingLotDtos = allParkingLots.stream().map(parkingLotMapper::mapParkingLotToDto).toList();
+        logger.info("Getting all parking lots finished");
+        return allParkingLotDtos;
     }
 }

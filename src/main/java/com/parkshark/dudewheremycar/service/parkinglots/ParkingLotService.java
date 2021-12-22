@@ -6,6 +6,8 @@ import com.parkshark.dudewheremycar.repository.parkinglots.ParkingLotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParkingLotService {
 
@@ -18,5 +20,9 @@ public class ParkingLotService {
 
     public ParkingLot createParkingLot(ParkingLot parkingLot) {
         return parkingLotRepository.save(parkingLot);
+    }
+
+    public List<ParkingLot> getAllParkingLots() {
+        return parkingLotRepository.findAll();
     }
 }
