@@ -1,3 +1,4 @@
+
 package com.parkshark.dudewheremycar.domain.divisions;
 
 import javax.persistence.*;

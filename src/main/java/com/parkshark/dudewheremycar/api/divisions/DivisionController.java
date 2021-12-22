@@ -1,3 +1,4 @@
+
 package com.parkshark.dudewheremycar.api.divisions;
 
 import com.parkshark.dudewheremycar.api.dtos.divisions.CreateDivisionDto;
