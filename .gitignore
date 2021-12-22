@@ -1,17 +1,9 @@
 HELP.md
 target/
-<<<<<<< HEAD
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
-=======
-!**/src/main/**/target/
-!**/src/test/**/target/
-
 .mvn
-
->>>>>>> 3e02253bce4e76a85fce956330cfccca5b66104b
 ### STS ###
 .apt_generated
 .classpath
@@ -27,10 +19,6 @@ target/
 *.iml
 *.ipr
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3e02253bce4e76a85fce956330cfccca5b66104b
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -43,7 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-
 **/application.log.**
 **/application.log
 **/*.gz
