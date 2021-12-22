@@ -6,6 +6,7 @@ import com.parkshark.dudewheremycar.api.dtos.divisions.DivisionDto;
 import com.parkshark.dudewheremycar.service.divisions.DivisionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,14 +23,14 @@ public class DivisionController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    //todo: as a Manager
+    @PreAuthorize("hasAuthority('CREATE_DIVISION')")
     public DivisionDto createDivision(@RequestBody CreateDivisionDto createDivisionDto) {
         return divisionService.addDivision(createDivisionDto);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-//    @PreAuthorize("hasAuthority('GET_DIVISIONS')")
+    @PreAuthorize("hasAuthority('GET_DIVISIONS')")
     public List<DivisionDto> getAllDivisions() {
         return divisionService.getDivisions();
     }
