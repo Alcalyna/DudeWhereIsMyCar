@@ -5,12 +5,15 @@ import com.parkshark.dudewheremycar.api.dtos.divisions.DivisionDto;
 import com.parkshark.dudewheremycar.api.mappers.divisions.DivisionMapper;
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.repository.divisions.DivisionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DivisionService {
 
+    @Autowired
     private DivisionRepository divisionRepository;
+
     private DivisionMapper divisionMapper;
 
     public DivisionService(DivisionRepository divisionRepository, DivisionMapper divisionMapper) {
@@ -20,7 +23,7 @@ public class DivisionService {
 
     public DivisionDto addDivision(CreateDivisionDto createDivisionDto) {
         Division division = divisionMapper.mapCreateDivisionDtoToDivision(createDivisionDto);
-        divisionRepository.addDivision(division);
+        divisionRepository.save(division);
         return divisionMapper.mapDivisionToDivisionDto(division);
     }
 }
