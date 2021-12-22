@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 @KeycloakConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Profile("!test")
 class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     /**
@@ -72,7 +73,6 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
      * Configure here the endpoints that need to be anonymously available
      */
     @Override
-    @Profile("test")
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**");
     }
