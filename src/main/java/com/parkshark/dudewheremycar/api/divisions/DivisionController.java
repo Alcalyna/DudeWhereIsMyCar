@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path="divisions")
 public class DivisionController {
@@ -22,5 +24,12 @@ public class DivisionController {
     //todo: as a Manager
     public DivisionDto createDivision(@RequestBody CreateDivisionDto createDivisionDto) {
         return divisionService.addDivision(createDivisionDto);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+//    @PreAuthorize("hasAuthority('GET_DIVISIONS')")
+    public List<DivisionDto> getAllDivisions() {
+        return divisionService.getDivisions();
     }
 }

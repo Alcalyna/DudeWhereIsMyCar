@@ -8,6 +8,9 @@ import com.parkshark.dudewheremycar.repository.divisions.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DivisionService {
 
@@ -25,5 +28,9 @@ public class DivisionService {
         Division division = divisionMapper.mapCreateDivisionDtoToDivision(createDivisionDto);
         divisionRepository.save(division);
         return divisionMapper.mapDivisionToDivisionDto(division);
+    }
+
+    public List<DivisionDto> getDivisions() {
+        return divisionRepository.findAll().stream().map(division -> divisionMapper.mapDivisionToDivisionDto(division)).collect(Collectors.toList());
     }
 }

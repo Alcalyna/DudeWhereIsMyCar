@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
 import java.util.UUID;
 
 import static io.restassured.http.ContentType.JSON;
@@ -44,5 +45,23 @@ class DivisionControllerTest {
         Assertions.assertTrue(!divisionDto.getId().toString().isBlank());
         Assertions.assertEquals("Garden Dolphin", divisionDto.getName());
         Assertions.assertEquals("Park Shark", divisionDto.getOriginalName());
+    }
+
+    @Test
+    void getAllDivisions() {
+        List<DivisionDto> divisions = RestAssured
+                .given()
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get("/divisions")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .as(List.class);
+
+        Assertions.assertTrue(divisions.size() > 0);
     }
 }
