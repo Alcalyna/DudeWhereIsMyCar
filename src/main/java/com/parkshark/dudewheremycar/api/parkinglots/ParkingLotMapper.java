@@ -21,6 +21,7 @@ public class ParkingLotMapper {
 
     public ParkingLotDto mapParkingLotToDto(ParkingLot parkingLotToMap) {
         ParkingLotDto createdParkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
+                .withId(parkingLotToMap.getId())
                 .withName(parkingLotToMap.getName())
                 .withParkingLotCategory(parkingLotToMap.getParkingLotCategory())
                 .withMaxCapacity(parkingLotToMap.getMaxCapacity())
@@ -30,5 +31,17 @@ public class ParkingLotMapper {
                 .withPricePerHour(parkingLotToMap.getPricePerHour())
                 .build();
         return createdParkingLotDto;
+    }
+
+    public ParkingLotSummaryDto mapParkingLotToSummaryDto(ParkingLot parkingLotToMap) {
+        ParkingLotSummaryDto createdParkingLotSummaryDto = ParkingLotSummaryDto.ParkingLotSummaryDtoBuilder.aParkingLotSummaryDto()
+                .withId(parkingLotToMap.getId())
+                .withName(parkingLotToMap.getName())
+                .withMaxCapacity(parkingLotToMap.getMaxCapacity())
+                .withContactPersonEmail(parkingLotToMap.getContactPerson().getEmailAddress())
+                .withContactPersonPhone(parkingLotToMap.getContactPerson().getPhoneNumber())
+                .withContactPersonMobile(parkingLotToMap.getContactPerson().getMobileNumber())
+                .build();
+        return createdParkingLotSummaryDto;
     }
 }

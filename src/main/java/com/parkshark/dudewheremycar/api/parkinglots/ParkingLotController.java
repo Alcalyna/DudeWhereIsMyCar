@@ -39,11 +39,14 @@ public class ParkingLotController {
 
     @GetMapping(produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<ParkingLotDto> getAllParkingLots() {
+    public List<ParkingLotSummaryDto> getAllParkingLots() {
         logger.info("Getting all parking lots started");
         List<ParkingLot> allParkingLots = parkingLotService.getAllParkingLots();
-        List<ParkingLotDto> allParkingLotDtos = allParkingLots.stream().map(parkingLotMapper::mapParkingLotToDto).toList();
+        List<ParkingLotSummaryDto> allParkingLotSummaryDtos = allParkingLots
+                .stream()
+                .map(parkingLotMapper::mapParkingLotToSummaryDto)
+                .toList();
         logger.info("Getting all parking lots finished");
-        return allParkingLotDtos;
+        return allParkingLotSummaryDtos;
     }
 }

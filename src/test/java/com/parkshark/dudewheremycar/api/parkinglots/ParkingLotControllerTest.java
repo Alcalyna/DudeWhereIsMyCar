@@ -60,6 +60,7 @@ class ParkingLotControllerTest {
                         .extract()
                         .as(ParkingLotDto.class);
 
+        assertThat(createdParkingLotDto.getId()).isNotNull();
         assertThat(compareParkingLotDtos(createdParkingLotDto,createParkingLotDto)).isTrue();
     }
 
@@ -150,7 +151,7 @@ class ParkingLotControllerTest {
                         .extract()
                         .as(ParkingLotDto.class);
 
-        List<ParkingLotDto> createdListOfParkingLotDtos =
+        List<ParkingLotSummaryDto> createdListOfParkingLotSummaryDtos =
                 RestAssured
                         .given()
                         .accept(JSON)
@@ -164,10 +165,10 @@ class ParkingLotControllerTest {
                         .extract()
                         .body()
                         .jsonPath()
-                        .getList(".", ParkingLotDto.class);
+                        .getList(".", ParkingLotSummaryDto.class);
 
-        assertThat(listContainsParkingLotDto(createdListOfParkingLotDtos, createdParkingLotDto1)).isTrue();
-        assertThat(listContainsParkingLotDto(createdListOfParkingLotDtos, createdParkingLotDto2)).isTrue();
+        assertThat(listContainsParkingLotDto(createdListOfParkingLotSummaryDtos, createdParkingLotDto1)).isTrue();
+        assertThat(listContainsParkingLotDto(createdListOfParkingLotSummaryDtos, createdParkingLotDto2)).isTrue();
     }
 
     private boolean compareParkingLotDtos(ParkingLotDto actual, ParkingLotDto expected){
@@ -228,11 +229,35 @@ class ParkingLotControllerTest {
         return true;
     }
 
-    private boolean listContainsParkingLotDto(List <ParkingLotDto> listOfParkingLotDtos, ParkingLotDto dtoToCompare) {
-        return listOfParkingLotDtos
-                .stream()
-                .map(parkingLotDtoInList -> compareParkingLotDtos(parkingLotDtoInList, dtoToCompare))
-                .toList()
-                .contains(true);
+    private boolean listContainsParkingLotDto(List <ParkingLotSummaryDto> listOfParkingLotDtos, ParkingLotDto dtoToCompare) {
+        for (ParkingLotSummaryDto summary : listOfParkingLotDtos) {
+            boolean dtosAreEqual = true;
+            if (!summary.getId().equals(dtoToCompare.getId())) {
+                dtosAreEqual = false;
+            }
+            if (!summary.getName().equals(dtoToCompare.getName())) {
+                dtosAreEqual = false;
+            }
+            if (!(summary.getMaxCapacity() == dtoToCompare.getMaxCapacity())) {
+                dtosAreEqual = false;
+            }
+            if (!summary.getContactPersonEmail().getUsername()
+                    .equals(dtoToCompare.getContactPerson().getEmailAddress().getUsername())) {
+                dtosAreEqual = false;
+            }
+            if (!summary.getContactPersonEmail().getDomain()
+                    .equals(dtoToCompare.getContactPerson().getEmailAddress().getDomain())) {
+                dtosAreEqual = false;
+            }
+            if (!summary.getContactPersonPhone().equals(dtoToCompare.getContactPerson().getPhoneNumber())) {
+                dtosAreEqual = false;
+            }
+            if (!summary.getContactPersonMobile().equals(dtoToCompare.getContactPerson().getMobileNumber())) {
+                dtosAreEqual = false;
+            }
+            if (dtosAreEqual)
+                return true;
+        }
+        return false;
     }
 }
