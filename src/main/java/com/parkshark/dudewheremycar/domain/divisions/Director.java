@@ -2,7 +2,6 @@ package com.parkshark.dudewheremycar.domain.divisions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.parkshark.dudewheremycar.domain.exceptions.InvalidDirectorInformationException;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidDivisionInformationException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,10 +40,6 @@ public class Director {
         this.id = id;
     }
 
-    public Director(UUID id) {
-        this.id = id;
-    }
-
     private void isValid(String firstName, String lastName) {
         if(firstName == null || firstName.trim().equals("")) {
             throw new InvalidDirectorInformationException("Director requires a first name!");
@@ -53,4 +48,13 @@ public class Director {
             throw new InvalidDirectorInformationException("Director requires a last name!");
         }
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }
+

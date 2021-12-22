@@ -24,7 +24,6 @@ class DivisionControllerTest {
 
     @Test
     void createDivision() {
-
         CreateDivisionDto createDivisionDto = new CreateDivisionDto()
                 .setName("Garden Dolphin")
                 .setOriginalName("Park Shark")
