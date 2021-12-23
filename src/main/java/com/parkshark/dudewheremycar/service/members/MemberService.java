@@ -1,12 +1,12 @@
 
 package com.parkshark.dudewheremycar.service.members;
 
-import com.parkshark.dudewheremycar.api.members.MemberDto;
-import com.parkshark.dudewheremycar.api.members.MemberMapper;
 import com.parkshark.dudewheremycar.domain.members.Member;
 import com.parkshark.dudewheremycar.repository.members.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -25,5 +25,13 @@ public class MemberService {
         Member savedMember = memberRepository.save(member);
         MemberDto outputMemberDto = memberMapper.mapMemberToDto(savedMember);
         return outputMemberDto;
+    }
+
+    public List<MemberSummaryDto> getAllMembers(){
+        List<Member> allMembers = memberRepository.findAll();
+        List<MemberSummaryDto> memberSummaryDtos = allMembers.stream()
+                .map(memberMapper::mapMemberToSummaryDto)
+                .toList();
+        return memberSummaryDtos;
     }
 }

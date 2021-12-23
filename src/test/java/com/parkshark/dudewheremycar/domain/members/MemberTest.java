@@ -4,6 +4,7 @@ import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidMemberI
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
+import com.parkshark.dudewheremycar.domain.information.LicensePlate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +24,7 @@ class MemberTest {
                 .withAddress(new Address("testStreet", "8", new City("9000", "Gent")))
                 .withPhoneNumber("092530082")
                 .withMobileNumber("0476162018")
+                .withLicensePlate(new LicensePlate("FGD564", "Norway"))
                 .withEmailAddress(new EmailAddress("jan", "test"))
                 .build();
 
@@ -40,6 +42,7 @@ class MemberTest {
                 .withAddress(new Address("testStreet", "8", new City("9000", "Gent")))
                 .withPhoneNumber("092530082")
                 .withMobileNumber("0476162018")
+                .withLicensePlate(new LicensePlate("FGD564", "Norway"))
                 .withEmailAddress(new EmailAddress("jan", "test"))
                 .build())
                 .isInstanceOf(InvalidMemberInformationException.class)

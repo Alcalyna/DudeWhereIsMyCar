@@ -1,9 +1,10 @@
-package com.parkshark.dudewheremycar.api.members;
+package com.parkshark.dudewheremycar.service.members;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
+import com.parkshark.dudewheremycar.domain.information.LicensePlate;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -17,6 +18,7 @@ public class MemberDto {
     private Address address;
     private LocalDate registrationDate;
     private String phoneNumber;
+    private LicensePlate licensePlate;
     private String mobileNumber;
     private EmailAddress emailAddress;
 
@@ -28,6 +30,7 @@ public class MemberDto {
         this.address = memberDtoBuilder.address;
         this.registrationDate = memberDtoBuilder.registrationDate;
         this.phoneNumber = memberDtoBuilder.phoneNumber;
+        this.licensePlate = memberDtoBuilder.licensePlate;
         this.mobileNumber = memberDtoBuilder.mobileNumber;
         this.emailAddress = memberDtoBuilder.emailAddress;
     }
@@ -64,6 +67,9 @@ public class MemberDto {
         return emailAddress;
     }
 
+    public LicensePlate getLicensePlate() {
+        return licensePlate;
+    }
 
     @JsonPOJOBuilder(withPrefix = "with")
     public static final class MemberDtoBuilder {
@@ -74,6 +80,7 @@ public class MemberDto {
         private LocalDate registrationDate;
         private String phoneNumber;
         private String mobileNumber;
+        private LicensePlate licensePlate;
         private EmailAddress emailAddress;
 
 
@@ -122,6 +129,11 @@ public class MemberDto {
 
         public MemberDtoBuilder withEmailAddress(EmailAddress emailAddress) {
             this.emailAddress = emailAddress;
+            return this;
+        }
+
+        public MemberDtoBuilder withLicensePlate(LicensePlate licensePlate) {
+            this.licensePlate = licensePlate;
             return this;
         }
 

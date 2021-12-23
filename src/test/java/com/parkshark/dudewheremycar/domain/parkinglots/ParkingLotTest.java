@@ -15,8 +15,7 @@ class ParkingLotTest {
     @Test
     void givenAParkingLotWithNoName_whenCreatingParkingLot_InvalidParkingLotInformationExceptionIsThrown(){
         Assertions.assertThatExceptionOfType(InvalidParkingLotInformationException.class)
-                .isThrownBy(() ->
-        ParkingLot.ParkingLotBuilder.aParkingLot()
+                .isThrownBy(() -> ParkingLot.ParkingLotBuilder.aParkingLot()
                 .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
                 .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
                 .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
