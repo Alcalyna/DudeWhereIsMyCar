@@ -1,10 +1,19 @@
 package com.parkshark.dudewheremycar.service.parkinglots;
 
+import com.parkshark.dudewheremycar.api.mappers.divisions.DivisionMapper;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ParkingLotMapper {
+
+    private final DivisionMapper divisionMapper;
+
+    @Autowired
+    public ParkingLotMapper(DivisionMapper divisionMapper) {
+        this.divisionMapper = divisionMapper;
+    }
 
     public ParkingLot mapDtoToParkingLot(ParkingLotDto parkingLotDtoToMap) {
         ParkingLot createdParkingLot = ParkingLot.ParkingLotBuilder.aParkingLot()
@@ -13,7 +22,7 @@ public class ParkingLotMapper {
                 .withMaxCapacity(parkingLotDtoToMap.getMaxCapacity())
                 .withContactPerson(parkingLotDtoToMap.getContactPerson())
                 .withAddress(parkingLotDtoToMap.getAddress())
-                .withDivision(parkingLotDtoToMap.getDivision())
+                .withDivision(divisionMapper.mapDivisionDtoToDivision(parkingLotDtoToMap.getDivisionDto()))
                 .withPricePerHour(parkingLotDtoToMap.getPricePerHour())
                 .build();
         return createdParkingLot;
@@ -27,7 +36,7 @@ public class ParkingLotMapper {
                 .withMaxCapacity(parkingLotToMap.getMaxCapacity())
                 .withContactPerson(parkingLotToMap.getContactPerson())
                 .withAddress(parkingLotToMap.getAddress())
-                .withDivision(parkingLotToMap.getDivision())
+                .withDivisionDto(divisionMapper.mapDivisionToDivisionDto(parkingLotToMap.getDivision()))
                 .withPricePerHour(parkingLotToMap.getPricePerHour())
                 .build();
         return createdParkingLotDto;

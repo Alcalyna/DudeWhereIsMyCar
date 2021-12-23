@@ -1,7 +1,7 @@
 package com.parkshark.dudewheremycar.api.parkinglots;
 
+import com.parkshark.dudewheremycar.api.dtos.divisions.DivisionDto;
 import com.parkshark.dudewheremycar.domain.divisions.Director;
-import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
@@ -15,10 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ActiveProfiles;
 
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
@@ -33,15 +31,15 @@ class ParkingLotControllerTest {
 
     @Test
     @Transactional
-    void givenParkingLot_whenManagerCreatesParkingLot_thenParkingLotIsAdded(){
+    void givenParkingLot_whenManagerCreatesParkingLot_thenParkingLotIsAdded() {
         ParkingLotDto createParkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
                 .withName("parkinglot1")
                 .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
                 .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
-                .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
+                .withContactPerson(new ContactPerson(new EmailAddress("myUsername", "switch.com"),
                         "0123456789", "9876543210"))
                 .withMaxCapacity(250)
-                .withDivision(new Division("myDivision", "myOriginalDivision", new Director("firstName", "last")))
+                .withDivisionDto(new DivisionDto("myDivision", "myOriginalDivision", new Director("firstName", "last")))
                 .withPricePerHour(55.25)
                 .build();
 
@@ -63,19 +61,19 @@ class ParkingLotControllerTest {
                         .as(ParkingLotDto.class);
 
         assertThat(createdParkingLotDto.getId()).isNotNull();
-        assertThat(compareParkingLotDtos(createdParkingLotDto,createParkingLotDto)).isTrue();
+        assertThat(compareParkingLotDtos(createdParkingLotDto, createParkingLotDto)).isTrue();
     }
 
     @Test
     @Transactional
-    void givenIncompleteParkingLot_whenManagerCreatesParkingLot_thenBadRequestIsReturnedWithMessage(){
+    void givenIncompleteParkingLot_whenManagerCreatesParkingLot_thenBadRequestIsReturnedWithMessage() {
         ParkingLotDto createParkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
                 .withName("parkinglot1")
                 .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
                 .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
-                .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
+                .withContactPerson(new ContactPerson(new EmailAddress("myUsername", "switch.com"),
                         "0123456789", "9876543210"))
-                .withDivision(new Division("myDivision", "myOriginalDivision", new Director("firstName", "last")))
+                .withDivisionDto(new DivisionDto("myDivision", "myOriginalDivision", new Director("firstName", "last")))
                 .withPricePerHour(55.25)
                 .build();
 
@@ -105,10 +103,10 @@ class ParkingLotControllerTest {
                 .withName("parkinglot1")
                 .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
                 .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
-                .withContactPerson(new ContactPerson(new EmailAddress("myUsername","switch.com"),
+                .withContactPerson(new ContactPerson(new EmailAddress("myUsername", "switch.com"),
                         "0123456789", "9876543210"))
                 .withMaxCapacity(250)
-                .withDivision(new Division("myDivision", "myOriginalDivision", new Director("firstName", "last")))
+                .withDivisionDto(new DivisionDto("myDivision", "myOriginalDivision", new Director("firstName", "last")))
                 .withPricePerHour(55.25)
                 .build();
 
@@ -116,10 +114,10 @@ class ParkingLotControllerTest {
                 .withName("parkinglot2")
                 .withParkingLotCategory(ParkingLotCategory.UNDERGROUND)
                 .withAddress(new Address("myStreet", "96", new City("4000", "theCity")))
-                .withContactPerson(new ContactPerson(new EmailAddress("theUsername","theswitch.com"),
+                .withContactPerson(new ContactPerson(new EmailAddress("theUsername", "theswitch.com"),
                         "066123456789", "966876543210"))
                 .withMaxCapacity(650)
-                .withDivision(new Division("theDivision", "theOriginalDivision", new Director("ffirstName", "llast")))
+                .withDivisionDto(new DivisionDto("theDivision", "theOriginalDivision", new Director("ffirstName", "llast")))
                 .withPricePerHour(65.25)
                 .build();
 
@@ -173,37 +171,44 @@ class ParkingLotControllerTest {
         assertThat(listContainsParkingLotDto(createdListOfParkingLotSummaryDtos, createdParkingLotDto2)).isTrue();
     }
 
-    private boolean compareParkingLotDtos(ParkingLotDto actual, ParkingLotDto expected){
-        if(!actual.getName().equals(expected.getName())){
+    private boolean compareParkingLotDtos(ParkingLotDto actual, ParkingLotDto expected) {
+        if (!actual.getName().equals(expected.getName())) {
             return false;
         }
-        if(!compareAddresses(actual.getAddress(), expected.getAddress())){
+        if (!compareAddresses(actual.getAddress(), expected.getAddress())) {
             return false;
         }
-        if(!compareContactPerson(actual.getContactPerson(), expected.getContactPerson())){
+        if (!compareContactPerson(actual.getContactPerson(), expected.getContactPerson())) {
             return false;
         }
-        if(!actual.getParkingLotCategory().equals(expected.getParkingLotCategory())){
+        if (!actual.getParkingLotCategory().equals(expected.getParkingLotCategory())) {
             return false;
         }
-        if(!compareDivisions(actual.getDivision(), expected.getDivision())){
+        if (!compareDivisionDtos(actual.getDivisionDto(), expected.getDivisionDto())) {
             return false;
         }
-        if(!(actual.getPricePerHour() == expected.getPricePerHour())){
+        if (!(actual.getPricePerHour() == expected.getPricePerHour())) {
             return false;
         }
         return true;
     }
 
-    private boolean compareDivisions(Division actual, Division expected) {
-        if (!actual.getDirector().getFirstName().equals(expected.getDirector().getFirstName()))
+    private boolean compareDivisionDtos(DivisionDto actual, DivisionDto expected) {
+        if (!actual.getId().equals(expected.getId())) {
             return false;
-        if (!actual.getDirector().getLastName().equals(expected.getDirector().getLastName()))
+        }
+        if (!actual.getDirector().getFirstName().equals(expected.getDirector().getFirstName())) {
             return false;
-        if (!actual.getOriginalName().equals(expected.getOriginalName()))
+        }
+        if (!actual.getDirector().getLastName().equals(expected.getDirector().getLastName())) {
             return false;
-        if (!actual.getName().equals(expected.getName()))
+        }
+        if (!actual.getOriginalName().equals(expected.getOriginalName())) {
             return false;
+        }
+        if (!actual.getName().equals(expected.getName())) {
+            return false;
+        }
         return true;
     }
 
@@ -231,7 +236,7 @@ class ParkingLotControllerTest {
         return true;
     }
 
-    private boolean listContainsParkingLotDto(List <ParkingLotSummaryDto> listOfParkingLotDtos, ParkingLotDto dtoToCompare) {
+    private boolean listContainsParkingLotDto(List<ParkingLotSummaryDto> listOfParkingLotDtos, ParkingLotDto dtoToCompare) {
         for (ParkingLotSummaryDto summary : listOfParkingLotDtos) {
             boolean dtosAreEqual = true;
             if (!summary.getId().equals(dtoToCompare.getId())) {

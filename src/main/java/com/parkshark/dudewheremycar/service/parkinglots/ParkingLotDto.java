@@ -2,6 +2,7 @@ package com.parkshark.dudewheremycar.service.parkinglots;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.parkshark.dudewheremycar.api.dtos.divisions.DivisionDto;
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
@@ -18,7 +19,7 @@ public class ParkingLotDto {
     private final int maxCapacity;
     private final ContactPerson contactPerson;
     private final Address address;
-    private final Division division;
+    private final DivisionDto divisionDto;
     private final double pricePerHour;
 
     public String getName() {
@@ -41,8 +42,8 @@ public class ParkingLotDto {
         return address;
     }
 
-    public Division getDivision() {
-        return division;
+    public DivisionDto getDivisionDto() {
+        return divisionDto;
     }
 
     public double getPricePerHour() {
@@ -60,7 +61,7 @@ public class ParkingLotDto {
         this.parkingLotCategory = parkingLotDtoBuilder.parkingLotCategory;
         this.contactPerson = parkingLotDtoBuilder.contactPerson;
         this.maxCapacity = parkingLotDtoBuilder.maxCapacity;
-        this.division = parkingLotDtoBuilder.division;
+        this.divisionDto = parkingLotDtoBuilder.divisionDto;
         this.pricePerHour = parkingLotDtoBuilder.pricePerHour;
     }
 
@@ -72,7 +73,7 @@ public class ParkingLotDto {
         private int maxCapacity;
         private ContactPerson contactPerson;
         private Address address;
-        private Division division;
+        private DivisionDto divisionDto;
         private double pricePerHour;
 
         private ParkingLotDtoBuilder() {
@@ -112,8 +113,8 @@ public class ParkingLotDto {
             return this;
         }
 
-        public ParkingLotDtoBuilder withDivision(Division division) {
-            this.division = division;
+        public ParkingLotDtoBuilder withDivisionDto(DivisionDto divisionDto) {
+            this.divisionDto = divisionDto;
             return this;
         }
 
