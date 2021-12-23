@@ -36,11 +36,15 @@ public class Director {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     private void isValid(String firstName, String lastName) {
-        if(firstName == null || firstName.trim().equals("")) {
+        if (firstName == null || firstName.trim().equals("")) {
             throw new InvalidDirectorInformationException("Director requires a first name!");
         }
-        if(lastName == null || lastName.trim().equals("")) {
+        if (lastName == null || lastName.trim().equals("")) {
             throw new InvalidDirectorInformationException("Director requires a last name!");
         }
     }

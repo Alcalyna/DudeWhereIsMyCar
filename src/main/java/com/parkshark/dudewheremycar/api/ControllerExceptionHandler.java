@@ -16,35 +16,35 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
-//    @ExceptionHandler(InvalidParkingLotInformationException.class)
-//    protected void authorizationNotGranted(InvalidParkingLotInformationException ex,
-//                                           HttpServletResponse response) throws IOException {
-//        badRequest(ex, response);
-//    }
-//
-//    @ExceptionHandler(InvalidAddressInformationException.class)
-//    protected void authorizationNotGranted(InvalidAddressInformationException ex,
-//                                           HttpServletResponse response) throws IOException {
-//        badRequest(ex, response);
-//    }
-//
-//    @ExceptionHandler(InvalidCityInformationException.class)
-//    protected void authorizationNotGranted(InvalidCityInformationException ex,
-//                                           HttpServletResponse response) throws IOException {
-//        badRequest(ex, response);
-//    }
-//
-//    @ExceptionHandler(InvalidContactPersonInformationException.class)
-//    protected void authorizationNotGranted(InvalidContactPersonInformationException ex,
-//                                           HttpServletResponse response) throws IOException {
-//        badRequest(ex, response);
-//    }
-//
-//    @ExceptionHandler(InvalidEmailAddressInformationException.class)
-//    protected void authorizationNotGranted(InvalidEmailAddressInformationException ex,
-//                                           HttpServletResponse response) throws IOException {
-//        badRequest(ex, response);
-//    }
+    @ExceptionHandler(InvalidParkingLotInformationException.class)
+    protected void authorizationNotGranted(InvalidParkingLotInformationException ex,
+                                           HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidAddressInformationException.class)
+    protected void authorizationNotGranted(InvalidAddressInformationException ex,
+                                           HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidCityInformationException.class)
+    protected void authorizationNotGranted(InvalidCityInformationException ex,
+                                           HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidContactPersonInformationException.class)
+    protected void authorizationNotGranted(InvalidContactPersonInformationException ex,
+                                           HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidEmailAddressInformationException.class)
+    protected void authorizationNotGranted(InvalidEmailAddressInformationException ex,
+                                           HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
 
     @ExceptionHandler(InvalidDivisionInformationException.class)
     protected void authorizationNotGranted(InvalidDivisionInformationException ex, HttpServletResponse response) throws IOException {
