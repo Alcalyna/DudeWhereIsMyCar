@@ -1,13 +1,15 @@
 
 package com.parkshark.dudewheremycar.api.members;
 
+import com.parkshark.dudewheremycar.service.members.MemberDto;
 import com.parkshark.dudewheremycar.service.members.MemberService;
+import com.parkshark.dudewheremycar.service.members.MemberSummaryDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -30,6 +32,13 @@ public class MemberController {
         return registerdMemberDto;
     }
 
-
+    @GetMapping(produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public List<MemberSummaryDto> getAllMembers(){
+        logger.info("Get all members started");
+        List<MemberSummaryDto> memberSummaryDtoList = memberService.getAllMembers();
+        logger.info("Get all members finished");
+        return memberSummaryDtoList;
+    }
 
 }

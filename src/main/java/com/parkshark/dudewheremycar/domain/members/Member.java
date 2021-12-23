@@ -4,6 +4,7 @@ package com.parkshark.dudewheremycar.domain.members;
 import com.parkshark.dudewheremycar.domain.exceptions.InvalidMemberInformationException;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
+import com.parkshark.dudewheremycar.domain.information.LicensePlate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -43,6 +44,9 @@ public class Member {
     @JoinColumn(name= "email_address")
     private EmailAddress emailAddress;
 
+    @OneToOne(cascade =  CascadeType.ALL)
+    @JoinColumn(name= "fk_license_plate")
+    private LicensePlate licensePlate;
 
     public Member(MemberBuilder memberBuilder){
         validateMemberInformation(memberBuilder);
@@ -53,6 +57,7 @@ public class Member {
         this.address = memberBuilder.address;
         this.phoneNumber = memberBuilder.phoneNumber;
         this.mobileNumber = memberBuilder.mobileNumber;
+        this.licensePlate = memberBuilder.licensePlate;
         this.emailAddress = memberBuilder.emailAddress;
     }
 
@@ -75,8 +80,11 @@ public class Member {
         if(memberBuilder.emailAddress == null){
             throw new InvalidMemberInformationException("A member requires an email address");
         }
-    }
+        if(memberBuilder.licensePlate == null){
+            throw new InvalidMemberInformationException("A member requires an license plate");
+        }
 
+    }
 
     public static final class MemberBuilder {
         private String firstName;
@@ -84,6 +92,7 @@ public class Member {
         private Address address;
         private String phoneNumber;
         private String mobileNumber;
+        private LicensePlate licensePlate;
         private EmailAddress emailAddress;
 
         MemberBuilder() {
@@ -123,6 +132,11 @@ public class Member {
             return this;
         }
 
+        public MemberBuilder withLicensePlate(LicensePlate licensePlate){
+            this.licensePlate = licensePlate;
+            return this;
+        }
+
         public Member build(){
             return new Member(this);
         }
@@ -158,5 +172,9 @@ public class Member {
 
     public EmailAddress getEmailAddress() {
         return emailAddress;
+    }
+
+    public LicensePlate getLicensePlate() {
+        return licensePlate;
     }
 }

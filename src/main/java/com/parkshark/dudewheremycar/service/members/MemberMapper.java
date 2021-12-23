@@ -1,4 +1,4 @@
-package com.parkshark.dudewheremycar.api.members;
+package com.parkshark.dudewheremycar.service.members;
 
 import com.parkshark.dudewheremycar.domain.members.Member;
 import org.springframework.stereotype.Component;
@@ -14,6 +14,7 @@ public class MemberMapper {
                 .withPhoneNumber(memberDtoToMap.getPhoneNumber())
                 .withMobileNumber(memberDtoToMap.getMobileNumber())
                 .withEmailAddress(memberDtoToMap.getEmailAddress())
+                .withLicensePlate(memberDtoToMap.getLicensePlate())
                 .build();
         return createdMember;
     }
@@ -27,9 +28,26 @@ public class MemberMapper {
                 .withMobileNumber(memberToMap.getMobileNumber())
                 .withEmailAddress(memberToMap.getEmailAddress())
                 .withRegistrationDate(memberToMap.getRegistrationDate())
+                .withLicensePlate(memberToMap.getLicensePlate())
                 .withMemberId(memberToMap.getMemberId())
                 .build();
         return createdMemberDto;
     }
+
+
+    public MemberSummaryDto mapMemberToSummaryDto(Member memberToMap){
+        MemberSummaryDto createdMemberSummaryDto = MemberSummaryDto.MemberSummaryDtoBuilder.aMemberSummaryDtoBuilder()
+                .withFirstName(memberToMap.getFirstName())
+                .withLastName(memberToMap.getLastName())
+                .withPhoneNumber(memberToMap.getPhoneNumber())
+                .withEmailAddress(memberToMap.getEmailAddress())
+                .withRegistrationDate(memberToMap.getRegistrationDate())
+                .withLicensePlateNumber(memberToMap.getLicensePlate().getLicensePlateNumber())
+                .withMemberId(memberToMap.getMemberId())
+                .build();
+        return createdMemberSummaryDto;
+    }
+
+
 
 }
