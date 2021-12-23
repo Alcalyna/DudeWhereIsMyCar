@@ -1,8 +1,6 @@
 package com.parkshark.dudewheremycar.api.mappers.divisions;
 
 import com.parkshark.dudewheremycar.api.dtos.divisions.CreateDivisionDto;
-import com.parkshark.dudewheremycar.domain.divisions.Director;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidDirectorInformationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DivisionMapperTest {

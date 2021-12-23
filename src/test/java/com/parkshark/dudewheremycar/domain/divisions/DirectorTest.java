@@ -1,6 +1,6 @@
 package com.parkshark.dudewheremycar.domain.divisions;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidDirectorInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidDirectorInformationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

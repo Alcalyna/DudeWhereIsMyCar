@@ -25,6 +25,9 @@ public class ParkingLotMapper {
                 .withDivision(divisionMapper.mapDivisionDtoToDivision(parkingLotDtoToMap.getDivisionDto()))
                 .withPricePerHour(parkingLotDtoToMap.getPricePerHour())
                 .build();
+        if(parkingLotDtoToMap.getId() != null){
+            createdParkingLot.setId(parkingLotDtoToMap.getId());
+        }
         return createdParkingLot;
     }
 

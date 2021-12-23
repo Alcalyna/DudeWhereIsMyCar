@@ -2,7 +2,7 @@ package com.parkshark.dudewheremycar.domain.parkinglots;
 
 import com.parkshark.dudewheremycar.domain.divisions.Director;
 import com.parkshark.dudewheremycar.domain.divisions.Division;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidParkingLotInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidParkingLotInformationException;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;

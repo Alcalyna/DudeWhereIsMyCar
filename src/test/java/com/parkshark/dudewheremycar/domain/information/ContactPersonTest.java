@@ -1,6 +1,6 @@
 package com.parkshark.dudewheremycar.domain.information;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidContactPersonInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidContactPersonInformationException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

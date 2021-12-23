@@ -2,11 +2,12 @@
 package com.parkshark.dudewheremycar.domain.parkinglots;
 
 import com.parkshark.dudewheremycar.domain.divisions.Division;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidParkingLotInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidParkingLotInformationException;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -81,6 +82,10 @@ public class ParkingLot {
 
     public UUID getId() { return id; }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -107,6 +112,19 @@ public class ParkingLot {
 
     public double getPricePerHour() {
         return pricePerHour;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParkingLot that = (ParkingLot) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public static final class ParkingLotBuilder {

@@ -1,7 +1,7 @@
 
 package com.parkshark.dudewheremycar.domain.members;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidMemberInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidMemberInformationException;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.information.LicensePlate;
@@ -59,6 +59,46 @@ public class Member {
         this.mobileNumber = memberBuilder.mobileNumber;
         this.licensePlate = memberBuilder.licensePlate;
         this.emailAddress = memberBuilder.emailAddress;
+    }
+
+    public UUID getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(UUID memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public EmailAddress getEmailAddress() {
+        return emailAddress;
+    }
+
+    public LicensePlate getLicensePlate() {
+        return licensePlate;
     }
 
     private void validateMemberInformation(MemberBuilder memberBuilder){
@@ -142,39 +182,4 @@ public class Member {
         }
     }
 
-    public UUID getMemberId() {
-        return memberId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public EmailAddress getEmailAddress() {
-        return emailAddress;
-    }
-
-    public LicensePlate getLicensePlate() {
-        return licensePlate;
-    }
 }

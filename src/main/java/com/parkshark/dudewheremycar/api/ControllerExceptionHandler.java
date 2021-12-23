@@ -1,6 +1,7 @@
 package com.parkshark.dudewheremycar.api;
 
-import com.parkshark.dudewheremycar.domain.exceptions.*;
+import com.parkshark.dudewheremycar.domain.exceptions.ParkingSpotAllocationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,48 +18,60 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
     @ExceptionHandler(InvalidParkingLotInformationException.class)
-    protected void authorizationNotGranted(InvalidParkingLotInformationException ex,
+    protected void invalidParkingLotInformationException(InvalidParkingLotInformationException ex,
                                            HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidAddressInformationException.class)
-    protected void authorizationNotGranted(InvalidAddressInformationException ex,
+    protected void invalidAddressInformationException(InvalidAddressInformationException ex,
                                            HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidCityInformationException.class)
-    protected void authorizationNotGranted(InvalidCityInformationException ex,
+    protected void invalidCityInformationException(InvalidCityInformationException ex,
                                            HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidContactPersonInformationException.class)
-    protected void authorizationNotGranted(InvalidContactPersonInformationException ex,
+    protected void invalidContactPersonInformationException(InvalidContactPersonInformationException ex,
                                            HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidEmailAddressInformationException.class)
-    protected void authorizationNotGranted(InvalidEmailAddressInformationException ex,
+    protected void invalidEmailAddressInformationException(InvalidEmailAddressInformationException ex,
                                            HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidDivisionInformationException.class)
-    protected void authorizationNotGranted(InvalidDivisionInformationException ex, HttpServletResponse response) throws IOException {
+    protected void invalidDivisionInformationException(InvalidDivisionInformationException ex, HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidDirectorInformationException.class)
-    protected void authorizationNotGranted(InvalidDirectorInformationException ex, HttpServletResponse response) throws IOException {
+    protected void invalidDirectorInformationException(InvalidDirectorInformationException ex, HttpServletResponse response) throws IOException {
         badRequest(ex, response);
     }
 
     @ExceptionHandler(InvalidMemberInformationException.class)
     protected void invalidMemberInformationException(InvalidMemberInformationException ex,
                                          HttpServletResponse response) throws IOException{
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidParkingSpotAllocationInformationException.class)
+    protected void invalidParkingSpotAllocationInformationException(InvalidParkingSpotAllocationInformationException ex,
+                                                     HttpServletResponse response) throws IOException{
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(ParkingSpotAllocationException.class)
+    protected void parkingSpotAllocationException(ParkingSpotAllocationException ex,
+                                                     HttpServletResponse response) throws IOException{
         badRequest(ex, response);
     }
 
