@@ -6,7 +6,8 @@ import java.util.List;
 import static com.parkshark.dudewheremycar.security.Feature.*;
 
 public enum Role {
-    MANAGER("admin", GET_ADMIN_PARKSHARK, GET_CUSTOMER_PARKSHARK),
+    MANAGER("admin", GET_ADMIN_PARKSHARK, GET_CUSTOMER_PARKSHARK,
+            CREATE_PARKING_LOT_PARKSHARK, GET_ALL_PARKING_LOTS_PARKSHARK),
     MEMBER("member", GET_CUSTOMER_PARKSHARK);
 
     private final String label;
