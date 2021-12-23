@@ -12,17 +12,28 @@ import java.util.List;
 public class ParkingLotService {
 
     private final ParkingLotRepository parkingLotRepository;
+    private final ParkingLotMapper parkingLotMapper;
 
     @Autowired
-    public ParkingLotService(ParkingLotRepository parkingLotRepository) {
+    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper) {
         this.parkingLotRepository = parkingLotRepository;
+        this.parkingLotMapper = parkingLotMapper;
     }
 
-    public ParkingLot createParkingLot(ParkingLot parkingLot) {
-        return parkingLotRepository.save(parkingLot);
+    public ParkingLotDto createParkingLot(ParkingLotDto parkingLotDto) {
+        ParkingLot mappedParkingLot = parkingLotMapper.mapDtoToParkingLot(parkingLotDto);
+        ParkingLot savedParkingLot = parkingLotRepository.save(mappedParkingLot);
+        ParkingLotDto mappedParkingLotDto = parkingLotMapper.mapParkingLotToDto(savedParkingLot);
+        return mappedParkingLotDto;
     }
 
-    public List<ParkingLot> getAllParkingLots() {
-        return parkingLotRepository.findAll();
+    public List<ParkingLotSummaryDto> getAllParkingLots() {
+        List<ParkingLot> allParkingLots = parkingLotRepository.findAll();
+        List<ParkingLotSummaryDto> allParkingLotSummaryDtos =
+                allParkingLots
+                .stream()
+                .map(parkingLotMapper::mapParkingLotToSummaryDto)
+                .toList();
+        return allParkingLotSummaryDtos;
     }
 }

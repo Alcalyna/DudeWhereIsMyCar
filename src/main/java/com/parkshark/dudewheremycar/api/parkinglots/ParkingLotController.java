@@ -34,9 +34,7 @@ public class ParkingLotController {
     //@PreAuthorize("CREATE_PARKING_LOT_PARKSHARK")
     public ParkingLotDto createParkingLot(@RequestBody ParkingLotDto parkingLotDto) {
         logger.info("Creating a parking lot started");
-        ParkingLot mappedParkingLot = parkingLotMapper.mapDtoToParkingLot(parkingLotDto);
-        ParkingLot createdParkingLot = parkingLotService.createParkingLot(mappedParkingLot);
-        ParkingLotDto createdParkingLotDto = parkingLotMapper.mapParkingLotToDto(createdParkingLot);
+        ParkingLotDto createdParkingLotDto = parkingLotService.createParkingLot(parkingLotDto);
         logger.info("Creating a parking lot finished");
         return createdParkingLotDto;
     }
@@ -46,11 +44,7 @@ public class ParkingLotController {
     //@PreAuthorize("GET_CUSTOMER_PARKSHARK")
     public List<ParkingLotSummaryDto> getAllParkingLots() {
         logger.info("Getting all parking lots started");
-        List<ParkingLot> allParkingLots = parkingLotService.getAllParkingLots();
-        List<ParkingLotSummaryDto> allParkingLotSummaryDtos = allParkingLots
-                .stream()
-                .map(parkingLotMapper::mapParkingLotToSummaryDto)
-                .toList();
+        List<ParkingLotSummaryDto> allParkingLotSummaryDtos = parkingLotService.getAllParkingLots();
         logger.info("Getting all parking lots finished");
         return allParkingLotSummaryDtos;
     }
