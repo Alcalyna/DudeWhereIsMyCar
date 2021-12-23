@@ -1,7 +1,7 @@
 package com.parkshark.dudewheremycar.service.allocations;
 
-import com.parkshark.dudewheremycar.api.members.MemberMapper;
 import com.parkshark.dudewheremycar.domain.parkingspotallocations.ParkingSpotAllocation;
+import com.parkshark.dudewheremycar.service.members.MemberMapper;
 import com.parkshark.dudewheremycar.service.parkinglots.ParkingLotMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

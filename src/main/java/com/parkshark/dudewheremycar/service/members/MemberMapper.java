@@ -16,6 +16,9 @@ public class MemberMapper {
                 .withEmailAddress(memberDtoToMap.getEmailAddress())
                 .withLicensePlate(memberDtoToMap.getLicensePlate())
                 .build();
+        if(memberDtoToMap.getMemberId() != null){
+            createdMember.setMemberId(memberDtoToMap.getMemberId());
+        }
         return createdMember;
     }
 

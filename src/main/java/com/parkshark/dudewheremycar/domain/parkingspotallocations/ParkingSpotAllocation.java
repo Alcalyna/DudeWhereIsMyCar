@@ -1,6 +1,7 @@
 package com.parkshark.dudewheremycar.domain.parkingspotallocations;
 
 import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidParkingSpotAllocationInformationException;
+import com.parkshark.dudewheremycar.domain.information.LicensePlate;
 import com.parkshark.dudewheremycar.domain.members.Member;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLot;
 
@@ -9,34 +10,33 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "parkingspot_allocations")
+@Table(name = "allocations")
 public class ParkingSpotAllocation {
 
     @Id
     @Column
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "parking_lot_id")
     private ParkingLot parkingLot;
 
-    //@ManyToOne
-    //@JoinColumn(name = "license_plate_id")
-    @Transient
-    private String licensePlate;
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "license_plate")
+    private LicensePlate licensePlate;
 
-    @Column(name = "start_date")
+    @Column(name = "start_time")
     private LocalDateTime startTime;
 
-    @Column(name = "stop_date")
+    @Column(name = "stop_time")
     private LocalDateTime stopTime;
 
     public ParkingSpotAllocation(ParkingSpotAllocationBuilder parkingSpotAllocationBuilder) {
-        validateParkingSpotAllocation(member,parkingLot,licensePlate);
+        validateParkingSpotAllocation(parkingSpotAllocationBuilder);
         this.id = UUID.randomUUID();
         this.member = parkingSpotAllocationBuilder.member;
         this.parkingLot = parkingSpotAllocationBuilder.parkingLot;
@@ -56,7 +56,7 @@ public class ParkingSpotAllocation {
         return parkingLot;
     }
 
-    public String getLicensePlate() {
+    public LicensePlate getLicensePlate() {
         return licensePlate;
     }
 
@@ -72,14 +72,14 @@ public class ParkingSpotAllocation {
         this.stopTime = LocalDateTime.now();
     }
 
-    private void validateParkingSpotAllocation(Member member, ParkingLot parkingLot, String licensePlate) {
-        if(member == null){
+    private void validateParkingSpotAllocation(ParkingSpotAllocationBuilder parkingSpotAllocationBuilder) {
+        if(parkingSpotAllocationBuilder.member == null){
             throw new InvalidParkingSpotAllocationInformationException("A parking spot allocation requires a member");
         }
-        if(parkingLot == null){
+        if(parkingSpotAllocationBuilder.parkingLot == null){
             throw new InvalidParkingSpotAllocationInformationException("A parking spot allocation requires a parking lot");
         }
-        if(licensePlate == null){
+        if(parkingSpotAllocationBuilder.licensePlate == null){
             throw new InvalidParkingSpotAllocationInformationException("A parking spot allocation requires a license plate");
         }
     }
@@ -90,7 +90,7 @@ public class ParkingSpotAllocation {
     public static final class ParkingSpotAllocationBuilder {
         private Member member;
         private ParkingLot parkingLot;
-        private String licensePlate;
+        private LicensePlate licensePlate;
 
         private ParkingSpotAllocationBuilder() {
         }
@@ -109,7 +109,7 @@ public class ParkingSpotAllocation {
             return this;
         }
 
-        public ParkingSpotAllocationBuilder withLicensePlate(String licensePlate) {
+        public ParkingSpotAllocationBuilder withLicensePlate(LicensePlate licensePlate) {
             this.licensePlate = licensePlate;
             return this;
         }
