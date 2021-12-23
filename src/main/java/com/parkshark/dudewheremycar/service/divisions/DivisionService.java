@@ -72,4 +72,12 @@ public class DivisionService {
         DivisionSubdivisionDto divisionSubdivisionDto = new DivisionSubdivisionDto(divisionSubdivision.getIdParent(), divisionSubdivision.getIdSubdivision());
         return divisionSubdivisionDto;
     }
+
+    public DivisionDto getById(UUID id) {
+        Division division = divisionRepository.findById(id).orElse(null);
+        if(division == null) {
+            throw new NullPointerException("This division doesn't exist!");
+        }
+        return divisionMapper.mapDivisionToDivisionDto(division).setSubdivisions(getAllSubdivisionById(division.getId()));
+    }
 }

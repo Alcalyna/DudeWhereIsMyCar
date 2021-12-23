@@ -52,4 +52,13 @@ public class DivisionController {
         logger.info("Creating a subdivision finished!");
         return divisionSubdivisionDto;
     }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DivisionDto getDivisionById(@PathVariable("id") UUID id) {
+        logger.info("Getting a division by id started!");
+        DivisionDto divisionDto = divisionService.getById(id);
+        logger.info("Getting a division by id finished!");
+        return divisionDto;
+    }
 }
