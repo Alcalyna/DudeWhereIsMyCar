@@ -20,13 +20,11 @@ import java.util.List;
 public class ParkingLotController {
 
     private final ParkingLotService parkingLotService;
-    private final ParkingLotMapper parkingLotMapper;
     private final Logger logger = LoggerFactory.getLogger(ParkingLotController.class);
 
     @Autowired
     public ParkingLotController(ParkingLotService parkingLotService) {
         this.parkingLotService = parkingLotService;
-        this.parkingLotMapper = new ParkingLotMapper();
     }
 
     @PostMapping(consumes= MediaType.APPLICATION_JSON_VALUE, produces= MediaType.APPLICATION_JSON_VALUE)
