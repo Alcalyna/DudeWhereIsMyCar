@@ -25,9 +25,10 @@ public class MemberController {
     @ResponseStatus(HttpStatus.CREATED)
     public MemberDto registerMember(@RequestBody MemberDto memberDto){
         logger.info("Register member started");
-        return memberService.registerMember(memberDto);
+        MemberDto registerdMemberDto = memberService.registerMember(memberDto);
+        logger.info("Register member finished");
+        return registerdMemberDto;
     }
-
 
 
 

@@ -1,6 +1,5 @@
 package com.parkshark.dudewheremycar.api.members;
 
-import com.parkshark.dudewheremycar.api.parkinglots.ParkingLotDto;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
@@ -19,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class MemberControllerTest {
 
     @Value("${server.port}")
