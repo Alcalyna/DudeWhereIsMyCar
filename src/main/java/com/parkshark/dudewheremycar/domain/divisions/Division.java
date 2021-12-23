@@ -24,8 +24,12 @@ public class Division {
     private Director director;
 
     public Division(String name, String originalName, Director director) {
+        this(UUID.randomUUID(), name, originalName, director);
+    }
+
+    public Division(UUID id, String name, String originalName, Director director) {
         isValid(name, director);
-        this.id = UUID.randomUUID();
+        this.id = id;
         this.name = name;
         this.originalName = originalName;
         this.director = director;

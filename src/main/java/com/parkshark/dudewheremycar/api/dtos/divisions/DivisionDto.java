@@ -21,6 +21,13 @@ public class DivisionDto {
         this.subdivisions = new ArrayList<>();
     }
 
+    public DivisionDto(String name, String originalName, Director director) {
+        this(UUID.randomUUID(), name, originalName, director);
+    }
+
+    public DivisionDto() {
+    }
+
     public UUID getId() {
         return id;
     }
