@@ -46,6 +46,16 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         badRequest(ex, response);
     }
 
+    @ExceptionHandler(InvalidDivisionInformationException.class)
+    protected void authorizationNotGranted(InvalidDivisionInformationException ex, HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidDirectorInformationException.class)
+    protected void authorizationNotGranted(InvalidDirectorInformationException ex, HttpServletResponse response) throws IOException {
+        badRequest(ex, response);
+    }
+
     private void badRequest(Exception ex, HttpServletResponse response) throws IOException {
         logger.error(ex.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());

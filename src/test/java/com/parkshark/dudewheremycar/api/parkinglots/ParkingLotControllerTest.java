@@ -25,7 +25,7 @@ import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class ParkingLotControllerTest {
 
     @Value("${server.port}")

@@ -3,34 +3,32 @@ package com.parkshark.dudewheremycar.domain.divisions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidDivisionInformationException;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name= "divisions")
+@Table(name = "divisions")
 public class Division {
 
     @Id
-    @Column(name= "id")
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name= "name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name= "original_name")
+    @Column(name = "original_name")
     private String originalName;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "director")
     private Director director;
 
     public Division(String name, String originalName, Director director) {
+        isValid(name, director);
+        this.id = UUID.randomUUID();
         this.name = name;
         this.originalName = originalName;
         this.director = director;
@@ -39,15 +37,28 @@ public class Division {
     private Division() {
     }
 
+    public String getOriginalName() {
+        return originalName;
+    }
+
+    public void isValid(String name, Director director) {
+        if (name == null || name.trim().equals("")) {
+            throw new InvalidDivisionInformationException("Division requires a name!");
+        }
+        if (director == null) {
+            throw new InvalidDivisionInformationException("Division requires a director!");
+        }
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public Director getDirector() {
         return director;
-    }
-
-    public String getOriginalName() {
-        return originalName;
     }
 }

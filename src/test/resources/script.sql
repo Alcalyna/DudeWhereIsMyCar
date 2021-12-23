@@ -1,0 +1,1 @@
+INSERT INTO directors(id, first_name, last_name) VALUES ('66241ef1-c725-4e0a-afcc-02658be40afc', 'Calinh', 'Corp');
