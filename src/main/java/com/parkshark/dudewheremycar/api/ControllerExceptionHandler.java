@@ -56,6 +56,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         badRequest(ex, response);
     }
 
+    @ExceptionHandler(InvalidMemberInformationException.class)
+    protected void invalidMemberInformationException(InvalidMemberInformationException ex,
+                                         HttpServletResponse response) throws IOException{
+        badRequest(ex, response);
+    }
+
     private void badRequest(Exception ex, HttpServletResponse response) throws IOException {
         logger.error(ex.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
