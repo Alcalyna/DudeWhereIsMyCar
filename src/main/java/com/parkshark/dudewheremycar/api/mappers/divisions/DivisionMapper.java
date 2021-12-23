@@ -16,6 +16,9 @@ public class DivisionMapper {
     }
 
     public Division mapCreateDivisionDtoToDivision(CreateDivisionDto createDivisionDto) {
+        if(directorRepository.findById(createDivisionDto.getDirectorId()).orElse(null) == null) {
+            throw new NullPointerException("This director doesn't exist!");
+        }
         return new Division(createDivisionDto.getName(), createDivisionDto.getOriginalName(), directorRepository.getById(createDivisionDto.getDirectorId()));
     }
 

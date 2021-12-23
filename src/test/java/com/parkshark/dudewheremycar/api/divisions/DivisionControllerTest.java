@@ -21,7 +21,7 @@ class DivisionControllerTest {
     private int port;
 
     @Test
-    void createDivision() {
+    void givenCreateDivisionDto_WhenUsingRestAssured_CreateAndReturnDivisionDto() {
 
         CreateDivisionDto createDivisionDto = new CreateDivisionDto()
                 .setName("Garden Dolphin")
@@ -48,7 +48,7 @@ class DivisionControllerTest {
     }
 
     @Test
-    void getAllDivisions() {
+    void givenDatabaseWithDatas_WhenCallingGetAllDivisions_ReturnListOfDivisionDto() {
         List<DivisionDto> divisions = RestAssured
                 .given()
                 .accept(JSON)
@@ -64,4 +64,5 @@ class DivisionControllerTest {
 
         Assertions.assertTrue(divisions.size() > 0);
     }
+
 }
