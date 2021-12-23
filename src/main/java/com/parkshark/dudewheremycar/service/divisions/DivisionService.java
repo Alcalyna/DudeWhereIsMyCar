@@ -37,13 +37,13 @@ public class DivisionService {
         Division division = divisionMapper.mapCreateDivisionDtoToDivision(createDivisionDto);
         divisionRepository.save(division);
         DivisionDto divisionDto = divisionMapper.mapDivisionToDivisionDto(division);
-        divisionDto.setDivisions(getAllSubdivisionById(division.getId()));
+        divisionDto.setSubdivisions(getAllSubdivisionById(division.getId()));
         return divisionDto;
     }
 
     public List<DivisionDto> getDivisions() {
         return divisionRepository.findAll().stream()
-                .map(division -> divisionMapper.mapDivisionToDivisionDto(division).setDivisions(getAllSubdivisionById(division.getId())))
+                .map(division -> divisionMapper.mapDivisionToDivisionDto(division).setSubdivisions(getAllSubdivisionById(division.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -57,17 +57,17 @@ public class DivisionService {
 
     public DivisionSubdivisionDto addSubdivision(UUID divisionId, CreateSubdivisionDto createSubdivisionDto) {
         Division parent = divisionRepository.findById(divisionId).orElse(null);
-//        if(parent == null) {
-//            throw new NullPointerException("This division doesn't exist!");
-//        }
+        if(parent == null) {
+            throw new NullPointerException("This division doesn't exist!");
+        }
         Division subdivision = divisionRepository.findById(createSubdivisionDto.getSubdivisionId()).orElse(null);
-//        if(subdivision == null) {
-//            throw new NullPointerException("This subdivision doesn't exist! Please create it before.");
-//        }
+        if(subdivision == null) {
+            throw new NullPointerException("This subdivision doesn't exist! Please create it before.");
+        }
         DivisionSubdivision divisionSubdivision = new DivisionSubdivision(parent.getId(), subdivision.getId());
-//        if(divisionSubdivisionRepository.existsById(subdivision.getId())) {
-//            throw new IllegalArgumentException("This subdivision already has a parent!");
-//        }
+        if(divisionSubdivisionRepository.existsById(subdivision.getId())) {
+            throw new IllegalArgumentException("This subdivision already has a parent!");
+        }
         divisionSubdivisionRepository.save(divisionSubdivision);
         DivisionSubdivisionDto divisionSubdivisionDto = new DivisionSubdivisionDto(divisionSubdivision.getIdParent(), divisionSubdivision.getIdSubdivision());
         return divisionSubdivisionDto;

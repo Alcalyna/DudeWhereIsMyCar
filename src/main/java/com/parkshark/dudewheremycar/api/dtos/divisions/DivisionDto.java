@@ -11,14 +11,14 @@ public class DivisionDto {
     private String name;
     private String originalName;
     private Director director;
-    private List<DivisionDto> divisions;
+    private List<DivisionDto> subdivisions;
 
     public DivisionDto(UUID id, String name, String originalName, Director director) {
         this.id = id;
         this.name = name;
         this.originalName = originalName;
         this.director = director;
-        this.divisions = new ArrayList<>();
+        this.subdivisions = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -37,12 +37,12 @@ public class DivisionDto {
         return director;
     }
 
-    public DivisionDto setDivisions(List<DivisionDto> divisions) {
-        this.divisions = divisions;
+    public DivisionDto setSubdivisions(List<DivisionDto> subdivisions) {
+        this.subdivisions = subdivisions;
         return this;
     }
 
-    public List<DivisionDto> getDivisions() {
-        return divisions;
+    public List<DivisionDto> getSubdivisions() {
+        return subdivisions;
     }
 }

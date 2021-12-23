@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -105,26 +106,45 @@ class DivisionControllerTest {
     }
 
 
-//    @Test
-//    void createSubdivisionWithNoExistingParent() {
-//        CreateSubdivisionDto createSubdivisionDto = new CreateSubdivisionDto(UUID.fromString("e0e25604-2c5e-4688-b3eb-3c8fc45980c1"));
-//
-//        Throwable exception =  catchThrowable(() -> RestAssured
-//                .given()
-//                .body(createSubdivisionDto)
-//                .accept(JSON)
-//                .contentType(JSON)
-//                .when()
-//                .port(port)
-//                .pathParam("id", "fd68cfa3-2dd7-4082-8ac5-b734b667b82f")
-//                .post("/divisions/{id}")
-//                .then()
-//                .assertThat()
-//                .statusCode(HttpStatus.CREATED.value())
-//                .extract()
-//                .as(DivisionSubdivisionDto.class));
-//
-//        Assertions.assertEquals(NullPointerException.class, exception.getClass());
-//        Assertions.assertEquals("This division doesn't exist!",exception.getMessage());
-//    }
+    @Test
+    void createSubdivisionWithNoExistingParent() {
+        CreateSubdivisionDto createSubdivisionDto = new CreateSubdivisionDto(UUID.fromString("e0e25604-2c5e-4688-b3eb-3c8fc45980c1"));
+
+        String exception = RestAssured
+                .given()
+                .body(createSubdivisionDto)
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .pathParam("id", "fd68cfa3-2dd7-4082-8ac5-b734b667b82f")
+                .post("/divisions/{id}")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .extract().path("message");
+
+        Assertions.assertEquals("This division doesn't exist!", exception);
+    }
+
+    @Test
+    void createSubdivisionWithNoExistingDivision() {
+        CreateSubdivisionDto createSubdivisionDto = new CreateSubdivisionDto(UUID.fromString("e0e25604-2c5e-4688-b3eb-3c8fc45980c2"));
+
+        String exception = RestAssured
+                .given()
+                .body(createSubdivisionDto)
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .pathParam("id", "fd68cfa3-2dd7-4082-8ac4-b734b667b82f")
+                .post("/divisions/{id}")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .extract().path("message");
+
+        Assertions.assertEquals("This subdivision doesn't exist! Please create it before.", exception);
+    }
 }
