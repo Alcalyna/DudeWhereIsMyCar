@@ -1,4 +1,4 @@
-package com.parkshark.dudewheremycar.api.parkinglots;
+package com.parkshark.dudewheremycar.service.parkinglots;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

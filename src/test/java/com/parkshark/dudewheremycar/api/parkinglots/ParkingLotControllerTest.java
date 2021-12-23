@@ -7,6 +7,8 @@ import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.ContactPerson;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLotCategory;
+import com.parkshark.dudewheremycar.service.parkinglots.ParkingLotDto;
+import com.parkshark.dudewheremycar.service.parkinglots.ParkingLotSummaryDto;
 import io.restassured.RestAssured;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.parkshark.dudewheremycar.api.parkinglots;
+package com.parkshark.dudewheremycar.service.parkinglots;
 
 import com.parkshark.dudewheremycar.domain.parkinglots.ParkingLot;
 import org.springframework.stereotype.Component;
