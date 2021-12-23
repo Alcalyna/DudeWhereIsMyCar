@@ -1,6 +1,6 @@
 package com.parkshark.dudewheremycar.domain.divisions;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidDivisionInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidDivisionInformationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

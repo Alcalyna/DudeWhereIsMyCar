@@ -1,6 +1,6 @@
 package com.parkshark.dudewheremycar.domain.information;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidAddressInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidAddressInformationException;
 
 import javax.persistence.*;
 import java.util.UUID;

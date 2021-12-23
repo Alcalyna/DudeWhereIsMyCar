@@ -1,7 +1,7 @@
 
 package com.parkshark.dudewheremycar.domain.members;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidMemberInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidMemberInformationException;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 

@@ -1,7 +1,6 @@
 package com.parkshark.dudewheremycar.domain.information;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidContactPersonInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidContactPersonInformationException;
 
 import javax.persistence.*;
 import java.util.UUID;

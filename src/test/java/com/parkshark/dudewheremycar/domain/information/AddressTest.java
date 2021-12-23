@@ -1,6 +1,6 @@
 package com.parkshark.dudewheremycar.domain.information;
 
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidAddressInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidAddressInformationException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

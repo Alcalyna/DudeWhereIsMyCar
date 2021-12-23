@@ -1,7 +1,7 @@
 package com.parkshark.dudewheremycar.domain.divisions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidDirectorInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidDirectorInformationException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
