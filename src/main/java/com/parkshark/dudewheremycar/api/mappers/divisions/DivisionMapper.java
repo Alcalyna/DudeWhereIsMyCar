@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DivisionMapper {
-    public static final String ANSI_GREEN = "\u001B[32m";
-    private DirectorRepository directorRepository;
+    private final DirectorRepository directorRepository;
 
     public DivisionMapper(DirectorRepository directorRepository) {
         this.directorRepository = directorRepository;

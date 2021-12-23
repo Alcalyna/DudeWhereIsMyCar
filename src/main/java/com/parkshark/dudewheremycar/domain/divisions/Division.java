@@ -1,8 +1,6 @@
 
 package com.parkshark.dudewheremycar.domain.divisions;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.GenericGenerator;
 import com.parkshark.dudewheremycar.domain.exceptions.InvalidDivisionInformationException;
 
 import javax.persistence.*;
@@ -11,7 +9,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "divisions")
 public class Division {
-
     @Id
     @Column(name = "id")
     private UUID id;
