@@ -72,8 +72,8 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     /**
      * Configure here the endpoints that need to be anonymously available
      */
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/**");
+//    }
 }

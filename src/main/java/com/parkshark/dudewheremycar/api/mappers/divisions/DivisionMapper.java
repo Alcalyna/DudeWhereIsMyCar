@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DivisionMapper {
-    public static final String ANSI_GREEN = "\u001B[32m";
     private DirectorRepository directorRepository;
 
     public DivisionMapper(DirectorRepository directorRepository) {
@@ -16,6 +15,9 @@ public class DivisionMapper {
     }
 
     public Division mapCreateDivisionDtoToDivision(CreateDivisionDto createDivisionDto) {
+        if(directorRepository.getById(createDivisionDto.getDirectorId()) == null) {
+            throw new NullPointerException("This director doesn't exist!");
+        }
         return new Division(createDivisionDto.getName(), createDivisionDto.getOriginalName(), directorRepository.getById(createDivisionDto.getDirectorId()));
     }
 

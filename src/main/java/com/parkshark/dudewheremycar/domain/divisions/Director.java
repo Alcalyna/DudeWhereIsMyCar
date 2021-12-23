@@ -22,7 +22,7 @@ public class Director {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    public Director() {
+    private Director() {
     }
 
     public Director(String firstName, String lastName) {
@@ -34,10 +34,6 @@ public class Director {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     private void isValid(String firstName, String lastName) {

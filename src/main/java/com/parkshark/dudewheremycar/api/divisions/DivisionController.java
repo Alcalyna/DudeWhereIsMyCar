@@ -26,7 +26,7 @@ public class DivisionController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('CREATE_DIVISION')")
+//    @PreAuthorize("hasAuthority('CREATE_DIVISION')")
     public DivisionDto createDivision(@RequestBody CreateDivisionDto createDivisionDto) {
         logger.info("Creating division started!");
         DivisionDto result = divisionService.addDivision(createDivisionDto);
@@ -36,7 +36,7 @@ public class DivisionController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAuthority('GET_DIVISIONS')")
+//    @PreAuthorize("hasAuthority('GET_DIVISIONS')")
     public List<DivisionDto> getAllDivisions() {
         logger.info("Getting all divisions started!");
         List<DivisionDto> result = divisionService.getDivisions();
