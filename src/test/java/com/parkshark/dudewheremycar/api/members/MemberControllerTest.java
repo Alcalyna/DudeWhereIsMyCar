@@ -5,6 +5,7 @@ import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.information.LicensePlate;
 import com.parkshark.dudewheremycar.domain.members.Member;
+import com.parkshark.dudewheremycar.domain.members.MembershipLevel;
 import com.parkshark.dudewheremycar.service.members.MemberDto;
 import com.parkshark.dudewheremycar.service.members.MemberSummaryDto;
 import io.restassured.RestAssured;
@@ -40,6 +41,7 @@ class MemberControllerTest {
                 .withMobileNumber("0486162018")
                 .withLicensePlate(new LicensePlate("ABC123", "Belgium"))
                 .withEmailAddress(new EmailAddress("jan", "test"))
+                .withMembershipLevel(MembershipLevel.SILVER)
                 .build();
 
         MemberDto createdMemberDto =
@@ -176,6 +178,9 @@ class MemberControllerTest {
             return false;
         }
         if (!actual.getMobileNumber().equals(expected.getMobileNumber())) {
+            return false;
+        }
+        if (!(actual.getMembershipLevel().getMonthlyCost() == (expected.getMembershipLevel().getMonthlyCost()))) {
             return false;
         }
         return actual.getPhoneNumber().equals(expected.getPhoneNumber());

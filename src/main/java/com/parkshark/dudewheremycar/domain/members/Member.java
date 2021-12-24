@@ -40,6 +40,9 @@ public class Member {
     @Column(name= "mobile_number")
     private String mobileNumber;
 
+    @Column(name="membership_level")
+    private MembershipLevel membershipLevel;
+
     @OneToOne(cascade =  CascadeType.ALL)
     @JoinColumn(name= "email_address")
     private EmailAddress emailAddress;
@@ -59,6 +62,10 @@ public class Member {
         this.mobileNumber = memberBuilder.mobileNumber;
         this.licensePlate = memberBuilder.licensePlate;
         this.emailAddress = memberBuilder.emailAddress;
+        this.membershipLevel = memberBuilder.membershipLevel;
+        if(membershipLevel == null){
+            membershipLevel = MembershipLevel.BRONZE;
+        }
     }
 
     private void validateMemberInformation(MemberBuilder memberBuilder){
@@ -94,6 +101,7 @@ public class Member {
         private String mobileNumber;
         private LicensePlate licensePlate;
         private EmailAddress emailAddress;
+        private MembershipLevel membershipLevel;
 
         MemberBuilder() {
         }
@@ -136,6 +144,10 @@ public class Member {
             this.licensePlate = licensePlate;
             return this;
         }
+        public MemberBuilder withMembershipLevel(MembershipLevel membershipLevel){
+            this.membershipLevel = membershipLevel;
+            return this;
+        }
 
         public Member build(){
             return new Member(this);
@@ -176,5 +188,9 @@ public class Member {
 
     public LicensePlate getLicensePlate() {
         return licensePlate;
+    }
+
+    public MembershipLevel getMembershipLevel() {
+        return membershipLevel;
     }
 }

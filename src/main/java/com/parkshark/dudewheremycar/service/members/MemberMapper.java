@@ -15,6 +15,7 @@ public class MemberMapper {
                 .withMobileNumber(memberDtoToMap.getMobileNumber())
                 .withEmailAddress(memberDtoToMap.getEmailAddress())
                 .withLicensePlate(memberDtoToMap.getLicensePlate())
+                .withMembershipLevel(memberDtoToMap.getMembershipLevel())
                 .build();
         return createdMember;
     }
@@ -30,10 +31,10 @@ public class MemberMapper {
                 .withRegistrationDate(memberToMap.getRegistrationDate())
                 .withLicensePlate(memberToMap.getLicensePlate())
                 .withMemberId(memberToMap.getMemberId())
+                .withMembershipLevel(memberToMap.getMembershipLevel())
                 .build();
         return createdMemberDto;
     }
-
 
     public MemberSummaryDto mapMemberToSummaryDto(Member memberToMap){
         MemberSummaryDto createdMemberSummaryDto = MemberSummaryDto.MemberSummaryDtoBuilder.aMemberSummaryDtoBuilder()
@@ -47,7 +48,5 @@ public class MemberMapper {
                 .build();
         return createdMemberSummaryDto;
     }
-
-
 
 }
