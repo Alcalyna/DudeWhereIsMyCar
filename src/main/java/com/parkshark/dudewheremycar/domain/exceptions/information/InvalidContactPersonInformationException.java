@@ -1,4 +1,4 @@
-package com.parkshark.dudewheremycar.domain.exceptions;
+package com.parkshark.dudewheremycar.domain.exceptions.information;
 
 public class InvalidContactPersonInformationException extends RuntimeException {
 

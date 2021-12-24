@@ -68,6 +68,46 @@ public class Member {
         }
     }
 
+    public UUID getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(UUID memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public EmailAddress getEmailAddress() {
+        return emailAddress;
+    }
+
+    public LicensePlate getLicensePlate() {
+        return licensePlate;
+    }
+
     private void validateMemberInformation(MemberBuilder memberBuilder){
         if(memberBuilder.firstName == null){
             throw new InvalidMemberInformationException("A member requires a first name");
@@ -101,7 +141,6 @@ public class Member {
         private String mobileNumber;
         private LicensePlate licensePlate;
         private EmailAddress emailAddress;
-        private MembershipLevel membershipLevel;
 
         MemberBuilder() {
         }

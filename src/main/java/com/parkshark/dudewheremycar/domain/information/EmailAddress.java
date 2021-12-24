@@ -1,7 +1,6 @@
 package com.parkshark.dudewheremycar.domain.information;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.parkshark.dudewheremycar.domain.exceptions.InvalidEmailAddressInformationException;
+import com.parkshark.dudewheremycar.domain.exceptions.information.InvalidEmailAddressInformationException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
