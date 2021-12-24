@@ -180,7 +180,7 @@ class DivisionControllerTest {
                 .get("/divisions/{id}")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
                 .extract().path("message");
 
         Assertions.assertEquals("This division doesn't exist!", exception);
