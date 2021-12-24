@@ -1,5 +1,6 @@
 package com.parkshark.dudewheremycar.api;
 
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidDivisionIdException;
 import com.parkshark.dudewheremycar.domain.exceptions.ParkingSpotAllocationException;
 import com.parkshark.dudewheremycar.domain.exceptions.information.*;
 import org.slf4j.Logger;
@@ -71,6 +72,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ParkingSpotAllocationException.class)
     protected void parkingSpotAllocationException(ParkingSpotAllocationException ex,
+                                                  HttpServletResponse response) throws IOException{
+        badRequest(ex, response);
+    }
+
+    @ExceptionHandler(InvalidDivisionIdException.class)
+    protected void invalidMemberInformationException(InvalidDivisionIdException ex,
                                                      HttpServletResponse response) throws IOException{
         badRequest(ex, response);
     }

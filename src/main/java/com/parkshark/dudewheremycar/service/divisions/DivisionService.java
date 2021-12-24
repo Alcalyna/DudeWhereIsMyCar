@@ -8,11 +8,13 @@ import com.parkshark.dudewheremycar.api.dtos.divisions.DivisionSubdivisionDto;
 import com.parkshark.dudewheremycar.api.mappers.divisions.DivisionMapper;
 import com.parkshark.dudewheremycar.domain.divisions.Division;
 import com.parkshark.dudewheremycar.domain.divisions.DivisionSubdivision;
+import com.parkshark.dudewheremycar.domain.exceptions.InvalidDivisionIdException;
 import com.parkshark.dudewheremycar.repository.divisions.DivisionRepository;
 import com.parkshark.dudewheremycar.repository.divisions.DivisionSubdivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -71,5 +73,13 @@ public class DivisionService {
         divisionSubdivisionRepository.save(divisionSubdivision);
         DivisionSubdivisionDto divisionSubdivisionDto = new DivisionSubdivisionDto(divisionSubdivision.getIdParent(), divisionSubdivision.getIdSubdivision());
         return divisionSubdivisionDto;
+    }
+
+    public DivisionDto getById(UUID id) {
+        Division division = divisionRepository.findById(id).orElse(null);
+        if(division == null) {
+            throw new InvalidDivisionIdException("This division doesn't exist!");
+        }
+        return divisionMapper.mapDivisionToDivisionDto(division).setSubdivisions(getAllSubdivisionById(division.getId()));
     }
 }

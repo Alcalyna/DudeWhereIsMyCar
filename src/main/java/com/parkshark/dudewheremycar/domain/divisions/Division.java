@@ -36,7 +36,7 @@ public class Division {
         this.director = director;
     }
 
-    private Division() {
+    protected Division() {
     }
 
     public String getOriginalName() {

@@ -147,4 +147,42 @@ class DivisionControllerTest {
 
         Assertions.assertEquals("This subdivision doesn't exist! Please create it before.", exception);
     }
+
+    @Test
+    void getDivisionDtoById() {
+        DivisionDto divisionDto = RestAssured
+                .given()
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .pathParam("id", "fd68cfa3-2dd7-4082-8ac4-b734b667b82f")
+                .get("/divisions/{id}")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .as(DivisionDto.class);
+
+        Assertions.assertEquals("Switchbelly", divisionDto.getName());
+        Assertions.assertEquals("Switchfully", divisionDto.getOriginalName());
+    }
+
+    @Test
+    void getDivisionDtoByIdThatDoesNotExist() {
+        String exception = RestAssured
+                .given()
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .pathParam("id", "fd68cfa3-2dd7-4082-8ac4-b734b667b789")
+                .get("/divisions/{id}")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .extract().path("message");
+
+        Assertions.assertEquals("This division doesn't exist!", exception);
+    }
 }
