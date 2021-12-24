@@ -62,6 +62,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         badRequest(ex, response);
     }
 
+    @ExceptionHandler(InvalidDivisionIdException.class)
+    protected void invalidMemberInformationException(InvalidDivisionIdException ex,
+                                                     HttpServletResponse response) throws IOException{
+        badRequest(ex, response);
+    }
+
     private void badRequest(Exception ex, HttpServletResponse response) throws IOException {
         logger.error(ex.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
