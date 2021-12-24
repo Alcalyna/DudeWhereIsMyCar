@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class MemberController {
 
     @PostMapping(consumes = "application/json" )
     @ResponseStatus(HttpStatus.CREATED)
+    //@PreAuthorize("hasAuthority('CREATE_MEMBER_PARKSHARK')")
     public MemberDto registerMember(@RequestBody MemberDto memberDto){
         logger.info("Register member started");
         MemberDto registerdMemberDto = memberService.registerMember(memberDto);
@@ -34,6 +36,7 @@ public class MemberController {
 
     @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    //@PreAuthorize("hasAuthority('GET_ALL_MEMBERS_PARKSHARK')")
     public List<MemberSummaryDto> getAllMembers(){
         logger.info("Get all members started");
         List<MemberSummaryDto> memberSummaryDtoList = memberService.getAllMembers();

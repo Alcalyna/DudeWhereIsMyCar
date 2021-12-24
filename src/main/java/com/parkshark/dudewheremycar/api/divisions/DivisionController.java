@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class DivisionController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    //@PreAuthorize("hasAuthority('CREATE_DIVISION_PARKSHARK')")
     public DivisionDto createDivision(@RequestBody CreateDivisionDto createDivisionDto) {
         logger.info("Creating division started!");
         DivisionDto result = divisionService.addDivision(createDivisionDto);
@@ -37,6 +39,7 @@ public class DivisionController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    //@PreAuthorize("hasAuthority('GET_ALL_DIVISIONS_PARKSHARK')")
     public List<DivisionDto> getAllDivisions() {
         logger.info("Getting all divisions started!");
         List<DivisionDto> result = divisionService.getDivisions();
@@ -46,6 +49,7 @@ public class DivisionController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path="/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    //@PreAuthorize("hasAuthority('CREATE_SUBDIVISION_PARKSHARK')")
     public DivisionSubdivisionDto createSubdivision(@PathVariable("id") UUID id, @RequestBody CreateSubdivisionDto createSubdivisionDto) {
         logger.info("Creating a subdivision started!");
         DivisionSubdivisionDto divisionSubdivisionDto = divisionService.addSubdivision(id, createSubdivisionDto);
@@ -55,6 +59,7 @@ public class DivisionController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
+    //@PreAuthorize("hasAuthority('GET_DIVISION_BY_ID_PARKSHARK')")
     public DivisionDto getDivisionById(@PathVariable("id") UUID id) {
         logger.info("Getting a division by id started!");
         DivisionDto divisionDto = divisionService.getById(id);

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class ParkingSpotAllocationController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    //@PreAuthorize("hasAuthority('CREATE_PARKING_SPOT_ALLOCATION_PARKSHARK')")
     public ParkingSpotAllocationDto createParkingSpotAllocation(@RequestBody ParkingSpotAllocationDto parkingSpotAllocationDto) {
         logger.info("Creating parking spot allocation started");
         ParkingSpotAllocationDto createdParkingSpotAllocationDto =
@@ -37,6 +39,7 @@ public class ParkingSpotAllocationController {
 
     @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    //@PreAuthorize("hasAuthority('STOP_PARKING_SPOT_ALLOCATION_PARKSHARK')")
     public ParkingSpotAllocationDto stopParkingSpotAllocation(@PathVariable UUID id) {
         logger.info("Stopping parking spot allocation started");
         ParkingSpotAllocationDto stoppedParkingSpotAllocationDto =
@@ -47,6 +50,7 @@ public class ParkingSpotAllocationController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    //@PreAuthorize("hasAuthority('GET_ALL_PARKING_SPOT_ALLOCATIONS_PARKSHARK')")
     public List<ParkingSpotAllocationDto> getAllParkingSpotAllocations(@RequestParam(required = false) Boolean active,
                                                                        @RequestParam(required = false) int limit,
                                                                        @RequestParam(required = false) SortOrder order) {
