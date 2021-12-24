@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.parkshark.dudewheremycar.domain.information.Address;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.information.LicensePlate;
+import com.parkshark.dudewheremycar.domain.members.MembershipLevel;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -21,6 +22,7 @@ public class MemberDto {
     private LicensePlate licensePlate;
     private String mobileNumber;
     private EmailAddress emailAddress;
+    private MembershipLevel membershipLevel;
 
 
     public MemberDto(MemberDtoBuilder memberDtoBuilder) {
@@ -33,6 +35,7 @@ public class MemberDto {
         this.licensePlate = memberDtoBuilder.licensePlate;
         this.mobileNumber = memberDtoBuilder.mobileNumber;
         this.emailAddress = memberDtoBuilder.emailAddress;
+        this.membershipLevel = memberDtoBuilder.membershipLevel;
     }
 
     public UUID getMemberId() {
@@ -71,6 +74,8 @@ public class MemberDto {
         return licensePlate;
     }
 
+    public MembershipLevel getMembershipLevel() { return membershipLevel; }
+
     @JsonPOJOBuilder(withPrefix = "with")
     public static final class MemberDtoBuilder {
         private UUID memberId;
@@ -82,6 +87,7 @@ public class MemberDto {
         private String mobileNumber;
         private LicensePlate licensePlate;
         private EmailAddress emailAddress;
+        private MembershipLevel membershipLevel;
 
 
 
@@ -134,6 +140,10 @@ public class MemberDto {
 
         public MemberDtoBuilder withLicensePlate(LicensePlate licensePlate) {
             this.licensePlate = licensePlate;
+            return this;
+        }
+        public MemberDtoBuilder withMembershipLevel(MembershipLevel membershipLevel) {
+            this.membershipLevel = membershipLevel;
             return this;
         }
 

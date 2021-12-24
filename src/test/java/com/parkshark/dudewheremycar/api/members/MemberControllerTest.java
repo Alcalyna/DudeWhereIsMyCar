@@ -5,6 +5,7 @@ import com.parkshark.dudewheremycar.domain.information.City;
 import com.parkshark.dudewheremycar.domain.information.EmailAddress;
 import com.parkshark.dudewheremycar.domain.information.LicensePlate;
 import com.parkshark.dudewheremycar.domain.members.Member;
+import com.parkshark.dudewheremycar.domain.members.MembershipLevel;
 import com.parkshark.dudewheremycar.service.members.MemberDto;
 import com.parkshark.dudewheremycar.service.members.MemberSummaryDto;
 import io.restassured.RestAssured;
@@ -40,6 +41,7 @@ class MemberControllerTest {
                 .withMobileNumber("0486162018")
                 .withLicensePlate(new LicensePlate("ABC123", "Belgium"))
                 .withEmailAddress(new EmailAddress("jan", "test"))
+                .withMembershipLevel(MembershipLevel.SILVER)
                 .build();
 
         MemberDto createdMemberDto =
@@ -58,6 +60,7 @@ class MemberControllerTest {
                         .as(MemberDto.class);
 
         assertThat(compareMemberDtos(createdMemberDto, createMemberDto)).isTrue();
+        assertThat(createdMemberDto.getMembershipLevel()).isEqualTo(MembershipLevel.SILVER);
     }
 
     @Test
@@ -159,6 +162,40 @@ class MemberControllerTest {
 
         assertThat(listContainsMemberSummaryDto(memberSummaryDtos, createdFirstMemberDto)).isTrue();
         assertThat(listContainsMemberSummaryDto(memberSummaryDtos, createdSecondMemberDto)).isTrue();
+    }
+
+    @Test
+    @Transactional
+    void givenMemberDto_whenMemberRegistersWithoutMembershipLevel_then_BronzeLevelIsAdded() {
+        MemberDto createMemberDto = MemberDto.MemberDtoBuilder.aMemberDtoBuilder()
+                .withFirstName("Jan")
+                .withLastName("TheTestMan")
+                .withAddress(new Address("TestStreet", "8", new City("9000", "Gent")))
+                .withPhoneNumber("092530082")
+                .withMobileNumber("0486162018")
+                .withLicensePlate(new LicensePlate("ABC123", "Belgium"))
+                .withEmailAddress(new EmailAddress("jan", "test"))
+                //.withMembershipLevel(MembershipLevel.SILVER)
+                .build();
+
+        MemberDto createdMemberDto =
+                RestAssured
+                        .given()
+                        .body(createMemberDto)
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .post("/members")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .extract()
+                        .as(MemberDto.class);
+
+        assertThat(compareMemberDtos(createdMemberDto, createMemberDto)).isTrue();
+        assertThat(createdMemberDto.getMembershipLevel()).isEqualTo(MembershipLevel.BRONZE);
+
     }
 
 
