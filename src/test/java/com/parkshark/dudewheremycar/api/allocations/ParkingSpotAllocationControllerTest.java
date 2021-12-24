@@ -229,4 +229,101 @@ class ParkingSpotAllocationControllerTest {
                 + " already has currently active allocation");
 
     }
+
+    @Test
+    @Transactional
+    void givenParkingSpotAllocations_whenStoppingParkingSpotAllocation_thenParkingSpotAllocationHasAStopTime() {
+        LicensePlate licensePlate = new LicensePlate("124ABC", "Belgium");
+
+        MemberDto memberDto = MemberDto.MemberDtoBuilder.aMemberDtoBuilder()
+                .withFirstName("Jan")
+                .withLastName("TheTestMan")
+                .withAddress(new Address("TestStreet", "8", new City("9000", "Gent")))
+                .withPhoneNumber("092530082")
+                .withMobileNumber("0486162018")
+                .withLicensePlate(licensePlate)
+                .withEmailAddress(new EmailAddress("jan", "test"))
+                .build();
+
+        ParkingLotDto parkingLotDto = ParkingLotDto.ParkingLotDtoBuilder.aParkingLotDto()
+                .withName("parkinglot1")
+                .withParkingLotCategory(ParkingLotCategory.ABOVEGROUND)
+                .withAddress(new Address("myStreetName", "69", new City("3000", "myCity")))
+                .withContactPerson(new ContactPerson(new EmailAddress("myUsername", "switch.com"),
+                        "0123456789", "9876543210"))
+                .withMaxCapacity(250)
+                .withDivisionDto(new DivisionDto("myDivision", "myOriginalDivision", new Director("firstName", "last")))
+                .withPricePerHour(55.25)
+                .build();
+
+        //register member with license plate
+        MemberDto createdMemberDto = RestAssured
+                .given()
+                .body(memberDto)
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .post("/members")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.CREATED.value())
+                .extract()
+                .as(MemberDto.class);
+
+        //register parking lot
+        ParkingLotDto createdParkingLotDto = RestAssured
+                .given()
+                .body(parkingLotDto)
+                .accept(JSON)
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .post("/parkinglots")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.CREATED.value())
+                .extract()
+                .as(ParkingLotDto.class);
+
+        ParkingSpotAllocationDto createParkingSpotAllocationDto1 = ParkingSpotAllocationDto.
+                ParkingSpotAllocationDtoBuilder.aParkingSpotAllocationDto()
+                .withMemberDto(createdMemberDto)
+                .withParkingLotDto(createdParkingLotDto)
+                .withLicensePlate(licensePlate)
+                .build();
+
+        //allocate parking spot with member, parking lot and license plate
+        ParkingSpotAllocationDto createdParkingSpotAllocationDto =
+                RestAssured
+                        .given()
+                        .body(createParkingSpotAllocationDto1)
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .post("/allocations")
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .extract()
+                        .as(ParkingSpotAllocationDto.class);
+
+        ParkingSpotAllocationDto stoppedParkingSpotAllocationDto =
+                RestAssured
+                        .given()
+                        .accept(JSON)
+                        .contentType(JSON)
+                        .when()
+                        .port(port)
+                        .put("/allocations/" + createdParkingSpotAllocationDto.getId())
+                        .then()
+                        .assertThat()
+                        .statusCode(HttpStatus.OK.value())
+                        .extract()
+                        .as(ParkingSpotAllocationDto.class);
+
+        Assertions.assertThat(stoppedParkingSpotAllocationDto.getStopTime()).isNotNull();
+
+    }
 }
